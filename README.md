@@ -1,16 +1,28 @@
 # hotel_booking_app
-
-A new Flutter project. test commit
-
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Hotel Booking is an app developed using Flutter, using Cloud Firestore as the storage database. The application is an intermediary application between the room renter and the person booking the room (traveler).
 
-A few resources to get you started if this is your first Flutter project:
+## Features
+- Cross-platform support (Android and iOS).
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Screenshots
+<p> 
+<img src="" alt="Light Home Screen" width="250"/>
+</p>
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+  
+## Setting
+- Flutter SDK (latest version)
+- Dart SDK
+- Firebase accounts - **Cloud Firestore**
+- Visual Studio Code or Android Studio
+
+### User manual
+1. Install Firebase CLI:
+Follow the installation instructions at: https://firebase.google.com/docs/cli?hl=vi#setup_update_cli
+2. Set up Firebase with Flutter:
+Follow the steps as in the instructions: https://firebase.google.com/docs/flutter/setup?hl=vi&platform=android
+3. Instructional videos:
+Watch detailed video instruction: https://www.youtube.com/watch?v=vSaonUieK8E&t=186s
+
