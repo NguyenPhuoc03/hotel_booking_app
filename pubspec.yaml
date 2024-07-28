@@ -39,6 +39,8 @@ dependencies:
   shared_preferences: ^2.2.3
   google_fonts: ^6.2.1
   provider: ^6.1.2
+  carousel_slider: ^4.2.1
+  badges: ^2.0.3
 
 dev_dependencies:
   flutter_test:

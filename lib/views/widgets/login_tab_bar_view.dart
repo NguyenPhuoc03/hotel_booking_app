@@ -111,7 +111,7 @@ class _LoginTabBarViewState extends State<LoginTabBarView> {
                     sharedPreferences.setBool(
                         "isCheckedRemember", rememberUser);
                     Navigator.pushNamedAndRemoveUntil(
-                        context, "/home", (route) => false);
+                        context, "/root", (route) => false);
                   },
                   style: ElevatedButton.styleFrom(
                     shape: const StadiumBorder(),

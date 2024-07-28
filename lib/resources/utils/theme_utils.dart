@@ -28,8 +28,15 @@ class ThemeApp {
           color: Colors.black, fontSize: 28, fontWeight: FontWeight.w500),
       headlineSmall: const TextStyle(
           fontSize: 16.0, color: Colors.white, fontWeight: FontWeight.w400),
-      // TextStyle? titleLarge,
-      //titleMedium:
+      titleLarge: TextStyle(
+        color: Colors.white,
+        fontSize: 18,
+        fontWeight: FontWeight.bold,
+      ),
+      titleMedium: TextStyle(
+        color: Colors.white,
+        fontSize: 16,
+      ),
       // TextStyle? titleSmall,
       // TextStyle? bodyLarge,
       bodyMedium: TextStyle(
@@ -42,11 +49,17 @@ class ThemeApp {
         fontSize: 14,
         fontFamily: 'RobotoMono',
       ),
-      // TextStyle? labelLarge,
+      labelLarge: TextStyle(
+          fontSize: 28,
+          color: Colors.blue.shade900,
+          fontWeight: FontWeight.w700),
       // labelMedium: TextStyle(
 
       // ),
-      // TextStyle? labelSmall,
+      labelSmall: TextStyle(
+          fontSize: 14,
+          color: Colors.blue.shade900,
+          fontWeight: FontWeight.w500),
     ),
   );
 }
