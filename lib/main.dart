@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hotel_booking_app/resources/utils/theme_utils.dart';
+import 'package:hotel_booking_app/viewmodels/login_view_model.dart';
 import 'package:hotel_booking_app/viewmodels/onboarding_view_model.dart';
+import 'package:hotel_booking_app/viewmodels/signup_view_model.dart';
 import 'package:hotel_booking_app/views/home_screen.dart';
 import 'package:hotel_booking_app/views/auth_screen.dart';
 import 'package:hotel_booking_app/views/onboarding_screen.dart';
@@ -20,13 +22,16 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<OnboardingViewModel>(
             create: (_) => OnboardingViewModel()),
+        ChangeNotifierProvider<SignupViewModel>(
+            create: (_) => SignupViewModel()),
+        ChangeNotifierProvider<LoginViewModel>(create: (_) => LoginViewModel())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeApp.myTheme,
         title: "Booking Hotel",
-      //  initialRoute: "/",
-      initialRoute: '/root',
+        initialRoute: "/",
+        //initialRoute: '/root',
         routes: {
           '/': (context) => OnboardingScreen(),
           '/root': (context) => RootScreen(),

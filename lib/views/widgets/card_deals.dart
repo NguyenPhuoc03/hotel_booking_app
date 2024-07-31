@@ -34,7 +34,7 @@ class CardDeals extends StatelessWidget {
                   left: 15,
                   child: Text(
                     'Lux Hotel with a Pool',
-                    style: myTheme.textTheme.titleLarge,
+                    style: myTheme.textTheme.titleMedium,
                   ),
                 ),
               ],

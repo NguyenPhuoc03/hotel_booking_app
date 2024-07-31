@@ -33,7 +33,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         // Skip button
         renderSkipBtn: Text(
           "Skip",
-          style: myTheme.textTheme.bodyMedium,
+          style: myTheme.textTheme.labelMedium,
         ),
         onSkipPress: () => viewModel.onDoneAndSkipPress(context),
         // Next button
@@ -45,7 +45,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         // Done button
         renderDoneBtn: Text(
           "Done",
-          style: myTheme.textTheme.bodyMedium,
+          style: myTheme.textTheme.labelMedium,
         ),
         onDonePress: () => viewModel.onDoneAndSkipPress(context),
 

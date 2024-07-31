@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hotel_booking_app/models/sightseeing_spot_model.dart';
 import 'package:hotel_booking_app/views/widgets/card_deals.dart';
+import 'package:hotel_booking_app/views/widgets/card_near_you.dart';
 import 'package:hotel_booking_app/views/widgets/card_popular_hotels.dart';
 import 'package:hotel_booking_app/views/widgets/custom_banner_container.dart';
 
@@ -71,127 +72,152 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     myTheme = Theme.of(context);
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        elevation: 0.0,
-        toolbarHeight: 80.0,
-        title: const ListTile(
-          leading: CircleAvatar(
-            radius: 25,
-            backgroundImage: NetworkImage(
-                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWVsm9smljjDm9Ta08_It5JxUFPKIO6ZPfbA&s'),
-          ),
-          title: Text(
-            "Welcome back",
-            style: TextStyle(fontSize: 22),
-          ),
-          subtitle: Text(
-            "Nguyễn Huỳnh Phước",
-            style: TextStyle(fontSize: 18),
-          ),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.notifications, size: 30),
-          ),
-        ],
-        backgroundColor: Colors.grey.shade50,
-      ),
-      body: ListView(children: [
-        //banner 
-        Container(
-          child: CarouselSlider(
-            options: CarouselOptions(
-              autoPlay: true,
-              aspectRatio: 16 / 9,
-              enlargeCenterPage: true,
-              viewportFraction: 1.0,
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          elevation: 0.0,
+          toolbarHeight: 80.0,
+          title: const ListTile(
+            leading: CircleAvatar(
+              radius: 25,
+              backgroundImage: NetworkImage(
+                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWVsm9smljjDm9Ta08_It5JxUFPKIO6ZPfbA&s'),
             ),
-            items: imageSliders,
+            title: Text(
+              "Welcome back",
+              style: TextStyle(fontSize: 22),
+            ),
+            subtitle: Text(
+              "Nguyễn Huỳnh Phước",
+              style: TextStyle(fontSize: 18),
+            ),
           ),
+          actions: [
+            IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.notifications, size: 30),
+            ),
+          ],
+          backgroundColor: Colors.grey.shade50,
         ),
-        const SizedBox(
-          height: 10,
-        ),
-        //list item
-        Container(
-          height: 270,
-          child: Column(
-            children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Popular Hotels",
-                      style: myTheme.textTheme.labelLarge,
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        "See all",
-                        style: myTheme.textTheme.labelSmall,
-                      ),
-                    )
-                  ],
+        body: SingleChildScrollView(
+          child: Column(children: [
+            //banner
+            Container(
+              child: CarouselSlider(
+                options: CarouselOptions(
+                  autoPlay: true,
+                  aspectRatio: 16 / 9,
+                  enlargeCenterPage: true,
+                  viewportFraction: 1.0,
                 ),
+                items: imageSliders,
               ),
-              Expanded(
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 5,
-                  itemBuilder: (context, index) {
-                    return CardPopularHotels(onTap: () {
-                      print("test");
-                    });
-                  },
-                ),
-              )
-            ],
-          ),
-        ),
-        Container(
-          height: 200,
-          child: Column(
-            children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Deals",
-                      style: myTheme.textTheme.labelLarge,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            //list item
+            //popular hotels
+            Container(
+              height: 270,
+              child: Column(
+                children: [
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Popular Hotels",
+                          style: myTheme.textTheme.labelLarge,
+                        ),
+                        TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            "See all",
+                            style: myTheme.textTheme.labelSmall,
+                          ),
+                        )
+                      ],
                     ),
-                    TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        "See all",
-                        style: myTheme.textTheme.labelSmall,
-                      ),
-                    )
-                  ],
-                ),
+                  ),
+                  Expanded(
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 5,
+                      itemBuilder: (context, index) {
+                        return CardPopularHotels(onTap: () {
+                          print("test");
+                        });
+                      },
+                    ),
+                  )
+                ],
               ),
-              Expanded(
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 5,
-                  itemBuilder: (context, index) {
-                    return CardDeals(onTap: () {
-                      print("test");
-                    });
-                  },
-                ),
-              )
-            ],
-          ),
-        ),
-      ]),
-    );
+            ),
+            //deals
+            Container(
+              height: 200,
+              child: Column(
+                children: [
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Deals",
+                          style: myTheme.textTheme.labelLarge,
+                        ),
+                        TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            "See all",
+                            style: myTheme.textTheme.labelSmall,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 5,
+                      itemBuilder: (context, index) {
+                        return CardDeals(onTap: () {
+                          print("test");
+                        });
+                      },
+                    ),
+                  )
+                ],
+              ),
+            ),
+            // near you
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Near You",
+                    style: myTheme.textTheme.labelLarge,
+                  ),
+                  IconButton(onPressed: () {}, icon: Icon(Icons.east)),
+                ],
+              ),
+            ),
+            ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: 5,
+              itemBuilder: (context, index) {
+                return CardNearYou();
+              },
+            )
+          ]),
+        ));
   }
 }

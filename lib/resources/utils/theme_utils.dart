@@ -30,17 +30,25 @@ class ThemeApp {
           fontSize: 16.0, color: Colors.white, fontWeight: FontWeight.w400),
       titleLarge: TextStyle(
         color: Colors.white,
-        fontSize: 18,
+        fontSize: 24,
         fontWeight: FontWeight.bold,
       ),
       titleMedium: TextStyle(
         color: Colors.white,
+        fontSize: 18,
+        fontWeight: FontWeight.w700,
+      ),
+      titleSmall: TextStyle(
+        color: Colors.white,
         fontSize: 16,
       ),
-      // TextStyle? titleSmall,
-      // TextStyle? bodyLarge,
+      bodyLarge: TextStyle(
+          color: Colors.black,
+          fontSize: 24,
+          fontFamily: 'RobotoMono',
+          fontWeight: FontWeight.bold),
       bodyMedium: TextStyle(
-          color: Colors.blue.shade900,
+          color: Colors.black,
           fontSize: 18,
           fontFamily: 'RobotoMono',
           fontWeight: FontWeight.w500),
@@ -53,9 +61,11 @@ class ThemeApp {
           fontSize: 28,
           color: Colors.blue.shade900,
           fontWeight: FontWeight.w700),
-      // labelMedium: TextStyle(
-
-      // ),
+      labelMedium: TextStyle(
+          color: Colors.blue.shade900,
+          fontSize: 18,
+          fontFamily: 'RobotoMono',
+          fontWeight: FontWeight.w500),
       labelSmall: TextStyle(
           fontSize: 14,
           color: Colors.blue.shade900,

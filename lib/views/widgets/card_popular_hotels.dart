@@ -32,12 +32,12 @@ class CardPopularHotels extends StatelessWidget {
                   children: [
                     Text(
                       'Lux Hotel with a Pool',
-                      style: myTheme.textTheme.titleLarge,
+                      style: myTheme.textTheme.titleMedium,
                     ),
                     const SizedBox(height: 5),
                     Text(
                       'Dubai',
-                      style: myTheme.textTheme.titleMedium,
+                      style: myTheme.textTheme.titleSmall,
                     ),
                   ],
                 ),
@@ -50,12 +50,12 @@ class CardPopularHotels extends StatelessWidget {
                   children: [
                     Text(
                       '\$700',
-                      style: myTheme.textTheme.titleMedium,
+                      style: myTheme.textTheme.titleSmall,
                     ),
                     SizedBox(width: 10),
                     Text(
                       '4.5',
-                      style: myTheme.textTheme.titleMedium,
+                      style: myTheme.textTheme.titleSmall,
                     ),
                     Icon(
                       Icons.star,
