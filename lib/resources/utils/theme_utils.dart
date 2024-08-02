@@ -68,8 +68,7 @@ class ThemeApp {
           fontWeight: FontWeight.w500),
       labelSmall: TextStyle(
           fontSize: 14,
-          color: Colors.blue.shade900,
-          fontWeight: FontWeight.w500),
+          color: Colors.blue.shade900),
     ),
   );
 }

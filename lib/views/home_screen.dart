@@ -1,12 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:hotel_booking_app/models/sightseeing_spot_model.dart';
 import 'package:hotel_booking_app/views/widgets/card_deals.dart';
 import 'package:hotel_booking_app/views/widgets/card_near_you.dart';
 import 'package:hotel_booking_app/views/widgets/card_popular_hotels.dart';
 import 'package:hotel_booking_app/views/widgets/custom_banner_container.dart';
+
+import 'package:badges/badges.dart' as badges;
 
 final List<SightseeingSpot> imgList = [
   SightseeingSpot(
@@ -92,10 +92,16 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           actions: [
-            IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.notifications, size: 30),
-            ),
+            badges.Badge(
+              position: badges.BadgePosition.topEnd(top: 12, end: 8),
+              //showBadge: false,
+              child: IconButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/notification');
+                },
+                icon: Icon(Icons.notifications, size: 32),
+              ),
+            )
           ],
           backgroundColor: Colors.grey.shade50,
         ),
@@ -148,7 +154,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       itemCount: 5,
                       itemBuilder: (context, index) {
                         return CardPopularHotels(onTap: () {
-                          print("test");
+                          Navigator.pushNamed(context, 'hotelDetail');
+                          print("popular hotel");
                         });
                       },
                     ),
@@ -187,7 +194,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       itemCount: 5,
                       itemBuilder: (context, index) {
                         return CardDeals(onTap: () {
-                          print("test");
+                          Navigator.pushNamed(context, 'hotelDetail');
+                          print("deals");
                         });
                       },
                     ),
@@ -205,16 +213,21 @@ class _HomeScreenState extends State<HomeScreen> {
                     "Near You",
                     style: myTheme.textTheme.labelLarge,
                   ),
-                  IconButton(onPressed: () {}, icon: Icon(Icons.east)),
+                  IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.east,
+                        color: Colors.blue.shade900,
+                      )),
                 ],
               ),
             ),
             ListView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
-              itemCount: 5,
+              itemCount: 10,
               itemBuilder: (context, index) {
-                return CardNearYou();
+                return CardNearYou( );
               },
             )
           ]),

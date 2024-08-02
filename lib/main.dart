@@ -5,6 +5,8 @@ import 'package:hotel_booking_app/viewmodels/onboarding_view_model.dart';
 import 'package:hotel_booking_app/viewmodels/signup_view_model.dart';
 import 'package:hotel_booking_app/views/home_screen.dart';
 import 'package:hotel_booking_app/views/auth_screen.dart';
+import 'package:hotel_booking_app/views/hotel_detail_screen.dart';
+import 'package:hotel_booking_app/views/notification_screen.dart';
 import 'package:hotel_booking_app/views/onboarding_screen.dart';
 import 'package:hotel_booking_app/views/root_screen.dart';
 import 'package:provider/provider.dart';
@@ -36,6 +38,11 @@ class MyApp extends StatelessWidget {
           '/': (context) => OnboardingScreen(),
           '/root': (context) => RootScreen(),
           '/auth': (context) => AuthScreen(),
+
+
+
+          '/notification': (context) => NotificationScreen(),
+          'hotelDetail': (context) =>  HotelDetailScreen(),
         },
       ),
     );

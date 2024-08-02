@@ -13,10 +13,14 @@ class _CardNearYouState extends State<CardNearYou> {
   Widget build(BuildContext context) {
     myTheme = Theme.of(context);
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.pushNamed(context, 'hotelDetail');
+        print("near you");
+      },
       child: Card(
         margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         elevation: 2,
+        color: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
@@ -55,25 +59,28 @@ class _CardNearYouState extends State<CardNearYou> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 5),
               child: Row(
-               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         "Beach Resort Lux",
-                        style: myTheme.textTheme.bodyLarge,
+                        style: myTheme.textTheme.bodyLarge
+                            ?.copyWith(color: Colors.blue.shade700),
                       ),
                       Text(
                         'Quy Nhon',
-                        style: myTheme.textTheme.bodyLarge,
+                        style: myTheme.textTheme.displayMedium
+                            ?.copyWith(color: Colors.blue.shade600),
                       ),
                     ],
                   ),
                   Text(
-                        '\$750',
-                        style: myTheme.textTheme.bodyLarge,
-                      ),
+                    '\$750',
+                    style: myTheme.textTheme.bodyLarge
+                        ?.copyWith(color: Colors.red),
+                  ),
                 ],
               ),
             )

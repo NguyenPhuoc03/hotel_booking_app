@@ -97,9 +97,8 @@ class _SignupTabBarViewState extends State<SignupTabBarView> {
                   controller: rConfirmPasswordController,
                   decoration: InputDecoration(
                     suffixIcon: IconButton(
-                      onPressed: () {
-                        viewModel.toggleConfirmPasswordVisible;
-                      },
+                      onPressed: 
+                        viewModel.toggleConfirmPasswordVisible,
                       icon: Icon(
                         viewModel.isConfirmPasswordVisible
                             ? Icons.visibility
