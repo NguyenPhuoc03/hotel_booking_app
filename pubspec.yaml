@@ -39,8 +39,10 @@ dependencies:
   shared_preferences: ^2.2.3
   google_fonts: ^6.2.1
   provider: ^6.1.2
-  carousel_slider: ^4.2.1
-  badges: ^2.0.3
+  #carousel_slider: ^4.2.1
+  badges: ^3.1.2
+  modal_bottom_sheet: ^3.0.0
+  date_time_picker: ^2.1.0
 
 dev_dependencies:
   flutter_test:
@@ -51,7 +53,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^3.0.0
+  flutter_lints: ^4.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

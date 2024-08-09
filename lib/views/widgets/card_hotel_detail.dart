@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:hotel_booking_app/views/widgets/bottom_sheet/room_selection_bottom_sheet.dart.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class CardHotelDetail extends StatelessWidget {
   CardHotelDetail({super.key});
@@ -87,7 +87,6 @@ class CardHotelDetail extends StatelessWidget {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: () {},
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue.shade600,
                       elevation: 2.0,
@@ -103,6 +102,12 @@ class CardHotelDetail extends StatelessWidget {
                         fontWeight: FontWeight.w700,
                       ),
                     ),
+                    onPressed: () {
+                      showMaterialModalBottomSheet(
+                        context: context,
+                        builder: (context) => RoomSelectionBottomSheet(),
+                      );
+                    },
                   ),
                 ],
               ),

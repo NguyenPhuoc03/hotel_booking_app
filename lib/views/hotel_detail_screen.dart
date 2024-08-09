@@ -12,8 +12,10 @@ class _HotelDetailScreenState extends State<HotelDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
         title: Text("Home Detail"),
+        backgroundColor: Colors.blue.shade200,
       ),
       body: ListView.builder(
         itemCount: 5,

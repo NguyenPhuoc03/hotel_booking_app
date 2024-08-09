@@ -1,4 +1,4 @@
-import 'package:carousel_slider/carousel_slider.dart';
+//import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:hotel_booking_app/models/sightseeing_spot_model.dart';
 import 'package:hotel_booking_app/views/widgets/card_deals.dart';
@@ -108,17 +108,17 @@ class _HomeScreenState extends State<HomeScreen> {
         body: SingleChildScrollView(
           child: Column(children: [
             //banner
-            Container(
-              child: CarouselSlider(
-                options: CarouselOptions(
-                  autoPlay: true,
-                  aspectRatio: 16 / 9,
-                  enlargeCenterPage: true,
-                  viewportFraction: 1.0,
-                ),
-                items: imageSliders,
-              ),
-            ),
+            // Container(
+            //   child: CarouselSlider(
+            //     options: CarouselOptions(
+            //       autoPlay: true,
+            //       aspectRatio: 16 / 9,
+            //       enlargeCenterPage: true,
+            //       viewportFraction: 1.0,
+            //     ),
+            //     items: imageSliders,
+            //   ),
+            // ),
             const SizedBox(
               height: 10,
             ),

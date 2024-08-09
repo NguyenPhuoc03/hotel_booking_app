@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hotel_booking_app/resources/utils/local_storage.dart';
 import 'package:hotel_booking_app/viewmodels/login_view_model.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginTabBarView extends StatefulWidget {
   const LoginTabBarView({super.key});
