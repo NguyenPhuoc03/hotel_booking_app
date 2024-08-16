@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class CardNearYou extends StatefulWidget {
-  CardNearYou({super.key});
+class HotelInformationColumnCard extends StatefulWidget {
+  HotelInformationColumnCard({super.key});
 
   @override
-  State<CardNearYou> createState() => _CardNearYouState();
+  State<HotelInformationColumnCard> createState() => _HotelInformationColumnCardState();
 }
 
-class _CardNearYouState extends State<CardNearYou> {
+class _HotelInformationColumnCardState extends State<HotelInformationColumnCard> {
   late ThemeData myTheme;
   @override
   Widget build(BuildContext context) {

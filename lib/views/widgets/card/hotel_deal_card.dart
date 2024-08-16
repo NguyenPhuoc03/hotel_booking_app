@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class CardDeals extends StatelessWidget {
+class HotelDealCard extends StatelessWidget {
   final Function onTap;
-  CardDeals({super.key, required this.onTap});
+  HotelDealCard({super.key, required this.onTap});
   late ThemeData myTheme;
 
   @override

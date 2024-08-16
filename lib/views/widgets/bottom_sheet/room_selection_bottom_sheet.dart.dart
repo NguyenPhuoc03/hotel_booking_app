@@ -143,7 +143,9 @@ class _RoomSelectionBottomSheetState extends State<RoomSelectionBottomSheet> {
                     myTheme.textTheme.titleLarge?.copyWith(color: Colors.red)),
           ),
           ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, 'bookingConfirmation');
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue.shade600,
                 elevation: 2.0,

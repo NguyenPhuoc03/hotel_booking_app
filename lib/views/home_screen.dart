@@ -1,9 +1,9 @@
 //import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:hotel_booking_app/models/sightseeing_spot_model.dart';
-import 'package:hotel_booking_app/views/widgets/card_deals.dart';
-import 'package:hotel_booking_app/views/widgets/card_near_you.dart';
-import 'package:hotel_booking_app/views/widgets/card_popular_hotels.dart';
+import 'package:hotel_booking_app/views/widgets/card/hotel_deal_card.dart';
+import 'package:hotel_booking_app/views/widgets/card/hotel_information_column_card.dart';
+import 'package:hotel_booking_app/views/widgets/card/hotel_information_stack_card.dart';
 import 'package:hotel_booking_app/views/widgets/custom_banner_container.dart';
 
 import 'package:badges/badges.dart' as badges;
@@ -153,7 +153,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       scrollDirection: Axis.horizontal,
                       itemCount: 5,
                       itemBuilder: (context, index) {
-                        return CardPopularHotels(onTap: () {
+                        return HotelInformationStackCard(onTap: () {
                           Navigator.pushNamed(context, 'hotelDetail');
                           print("popular hotel");
                         });
@@ -179,7 +179,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           style: myTheme.textTheme.labelLarge,
                         ),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/hotelList');
+                          },
                           child: Text(
                             "See all",
                             style: myTheme.textTheme.labelSmall,
@@ -193,7 +195,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       scrollDirection: Axis.horizontal,
                       itemCount: 5,
                       itemBuilder: (context, index) {
-                        return CardDeals(onTap: () {
+                        return HotelDealCard(onTap: () {
                           Navigator.pushNamed(context, 'hotelDetail');
                           print("deals");
                         });
@@ -227,7 +229,7 @@ class _HomeScreenState extends State<HomeScreen> {
               physics: NeverScrollableScrollPhysics(),
               itemCount: 10,
               itemBuilder: (context, index) {
-                return CardNearYou( );
+                return HotelInformationColumnCard();
               },
             )
           ]),

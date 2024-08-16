@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hotel_booking_app/views/widgets/bottom_sheet/room_selection_bottom_sheet.dart.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-class CardHotelDetail extends StatelessWidget {
-  CardHotelDetail({super.key});
+class HotelUtilitiesCard extends StatelessWidget {
+  HotelUtilitiesCard({super.key});
   late ThemeData myTheme;
 
   @override

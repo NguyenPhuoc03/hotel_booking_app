@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hotel_booking_app/views/widgets/card_hotel_detail.dart';
+import 'package:hotel_booking_app/views/widgets/card/hotel_utilities_card.dart';
 
 class HotelDetailScreen extends StatefulWidget {
   const HotelDetailScreen({super.key});
@@ -15,11 +15,11 @@ class _HotelDetailScreenState extends State<HotelDetailScreen> {
       backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
         title: Text("Home Detail"),
-        backgroundColor: Colors.blue.shade200,
+        backgroundColor: Colors.blue.shade400,
       ),
       body: ListView.builder(
         itemCount: 5,
-        itemBuilder: (context, index) => CardHotelDetail(),
+        itemBuilder: (context, index) => HotelUtilitiesCard(),
         ),
     );
   }
