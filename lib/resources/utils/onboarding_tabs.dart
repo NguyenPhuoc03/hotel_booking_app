@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hotel_booking_app/views/widgets/custom_tab_container.dart';
+import 'package:hotel_booking_app/views/widgets/other/custom_tab_container.dart';
 
 class OnboardingTabs {
   static final List<Widget> listWidget = [

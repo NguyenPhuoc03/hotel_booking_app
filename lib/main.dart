@@ -4,14 +4,15 @@ import 'package:hotel_booking_app/viewmodels/booking_view_model.dart';
 import 'package:hotel_booking_app/viewmodels/login_view_model.dart';
 import 'package:hotel_booking_app/viewmodels/onboarding_view_model.dart';
 import 'package:hotel_booking_app/viewmodels/signup_view_model.dart';
-import 'package:hotel_booking_app/views/booking_confirmation_screen.dart';
-import 'package:hotel_booking_app/views/home_screen.dart';
-import 'package:hotel_booking_app/views/auth_screen.dart';
-import 'package:hotel_booking_app/views/hotel_detail_screen.dart';
-import 'package:hotel_booking_app/views/hotel_list_screen.dart';
-import 'package:hotel_booking_app/views/notification_screen.dart';
-import 'package:hotel_booking_app/views/onboarding_screen.dart';
-import 'package:hotel_booking_app/views/root_screen.dart';
+import 'package:hotel_booking_app/views/screens/booking_confirmation_screen.dart';
+import 'package:hotel_booking_app/views/screens/home_screen.dart';
+import 'package:hotel_booking_app/views/screens/auth_screen.dart';
+import 'package:hotel_booking_app/views/screens/hotel_detail_screen.dart';
+import 'package:hotel_booking_app/views/screens/hotel_list_screen.dart';
+import 'package:hotel_booking_app/views/screens/notification_screen.dart';
+import 'package:hotel_booking_app/views/screens/onboarding_screen.dart';
+import 'package:hotel_booking_app/views/screens/root_screen.dart';
+import 'package:hotel_booking_app/views/screens/search_next_step_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -48,6 +49,7 @@ class MyApp extends StatelessWidget {
           'hotelDetail': (context) => HotelDetailScreen(),
           'bookingConfirmation': (context) => BookingConfirmationScreen(),
           '/hotelList': (context) => HotelListScreen(),
+          '/searchNextStep': (context) =>  SearchNextStepScreen(),
         },
       ),
     );

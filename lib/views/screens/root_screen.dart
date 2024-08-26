@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hotel_booking_app/views/home_screen.dart';
-import 'package:hotel_booking_app/views/notification_screen.dart';
+import 'package:hotel_booking_app/views/screens/profile_screen.dart';
+import 'package:hotel_booking_app/views/screens/booking_history_screen.dart';
+import 'package:hotel_booking_app/views/screens/home_screen.dart';
+import 'package:hotel_booking_app/views/screens/search_screen.dart';
 
 class RootScreen extends StatefulWidget {
   const RootScreen({super.key});
@@ -13,9 +15,9 @@ class _RootScreenState extends State<RootScreen> {
   int _currentIndex = 0;
   final List<Widget> _screens = [
     HomeScreen(),
-    HomeScreen(),
-    NotificationScreen(),
-    HomeScreen(),
+    SearchScreen(),
+    BookingHistoryScreen(),
+    ProfileScreen(),
   ];
 
   @override
@@ -33,7 +35,7 @@ class _RootScreenState extends State<RootScreen> {
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(icon: Icon(Icons.search), label: "Search"),
           BottomNavigationBarItem(
-              icon: Icon(Icons.notifications), label: "Notification"),
+              icon: Icon(Icons.assignment), label: "My Bookings"),
           BottomNavigationBarItem(
               icon: Icon(Icons.account_circle), label: "Profile")
         ],

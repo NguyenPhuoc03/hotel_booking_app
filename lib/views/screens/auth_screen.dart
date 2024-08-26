@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hotel_booking_app/views/widgets/login_tab_bar_view.dart';
-import 'package:hotel_booking_app/views/widgets/signup_tab_bar_view.dart';
+import 'package:hotel_booking_app/views/widgets/tab_bar_view/login_tab_bar_view.dart';
+import 'package:hotel_booking_app/views/widgets/tab_bar_view/signup_tab_bar_view.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});

@@ -93,13 +93,12 @@ class HotelUtilitiesCard extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      fixedSize: Size(120, 60),
+                      fixedSize: Size(120, 50),
                     ),
                     child: Text(
                       "Select",
-                      style: myTheme.textTheme.titleLarge?.copyWith(
+                      style: myTheme.textTheme.titleMedium?.copyWith(
                         letterSpacing: 1.25,
-                        fontWeight: FontWeight.w700,
                       ),
                     ),
                     onPressed: () {

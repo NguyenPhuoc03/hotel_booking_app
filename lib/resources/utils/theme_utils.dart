@@ -41,6 +41,7 @@ class ThemeApp {
       titleSmall: TextStyle(
         color: Colors.white,
         fontSize: 16,
+        fontWeight: FontWeight.normal,
       ),
       bodyLarge: TextStyle(
           color: Colors.black,

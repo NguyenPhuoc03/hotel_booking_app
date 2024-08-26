@@ -4,7 +4,7 @@ import 'package:hotel_booking_app/models/sightseeing_spot_model.dart';
 import 'package:hotel_booking_app/views/widgets/card/hotel_deal_card.dart';
 import 'package:hotel_booking_app/views/widgets/card/hotel_information_column_card.dart';
 import 'package:hotel_booking_app/views/widgets/card/hotel_information_stack_card.dart';
-import 'package:hotel_booking_app/views/widgets/custom_banner_container.dart';
+import 'package:hotel_booking_app/views/widgets/other/custom_banner_container.dart';
 
 import 'package:badges/badges.dart' as badges;
 
@@ -97,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
               //showBadge: false,
               child: IconButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/notification');
+                 Navigator.pushNamed(context, '/notification');
                 },
                 icon: Icon(Icons.notifications, size: 32),
               ),
