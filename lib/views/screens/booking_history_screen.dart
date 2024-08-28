@@ -24,6 +24,7 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
+          centerTitle: true,
           backgroundColor: Colors.blue.shade400,
           title: const Text("Booking History"),
           bottom: PreferredSize(

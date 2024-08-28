@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hotel_booking_app/views/widgets/card/hotel_category_card.dart';
+import 'package:hotel_booking_app/views/widgets/card/search_result_hotel_card.dart.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -108,7 +109,11 @@ class _SearchScreenState extends State<SearchScreen> {
                       mainAxisExtent: 50.0,
                     ),
                     itemBuilder: (BuildContext context, int index) {
-                      return HotelCategoryCard();
+                      return HotelCategoryCard(
+                        onTap: () {
+                          print("ontap");
+                        },
+                      );
                     }),
               ),
             ],

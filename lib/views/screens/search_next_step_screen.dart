@@ -87,7 +87,13 @@ class _SearchNextStepScreenState extends State<SearchNextStepScreen> {
               child: ListView.builder(
             itemCount: 5,
             itemBuilder: (context, index) {
-              return RecentSearchCard();
+              return RecentSearchCard(
+                onTap: () {
+                  setState(() {
+                    _searchController.text = "Quy Nhon";
+                  });
+                },
+              );
             },
           ))
         ],

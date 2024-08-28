@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class RecentSearchCard extends StatelessWidget {
-  RecentSearchCard({super.key});
+  RecentSearchCard({super.key, required this.onTap});
+  final VoidCallback onTap;
   late ThemeData myTheme;
 
   @override
@@ -11,6 +12,7 @@ class RecentSearchCard extends StatelessWidget {
       color: Colors.transparent,
       elevation: 0.0,
       child: ListTile(
+        onTap: onTap,
         visualDensity: VisualDensity(vertical: -4),
         contentPadding: EdgeInsets.all(0),
         leading: Icon(
@@ -19,7 +21,8 @@ class RecentSearchCard extends StatelessWidget {
         ),
         title: Text(
           "Quy Nhon",
-          style: myTheme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.normal),
+          style: myTheme.textTheme.bodyMedium
+              ?.copyWith(fontWeight: FontWeight.normal),
         ),
         trailing: Icon(
           Icons.arrow_outward_sharp,

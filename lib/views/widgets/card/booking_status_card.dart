@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class BookingStatusCard extends StatefulWidget {
   BookingStatusCard({super.key, required this.labelButton});
@@ -100,13 +101,57 @@ class _BookingStatusCardState extends State<BookingStatusCard> {
                 onPressed: _isButtonDisabled
                     ? null
                     : () {
+                        showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            actionsPadding: const EdgeInsets.only(bottom: 12),
+                            title: const Text(
+                              'Please rate your experience',
+                            ),
+                            titleTextStyle: myTheme.textTheme.bodyMedium,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            content: RatingBar.builder(
+                              minRating: 1,
+                              direction: Axis.horizontal,
+                              allowHalfRating: false,
+                              itemCount: 5,
+                              itemPadding:
+                                  EdgeInsets.symmetric(horizontal: 4.0),
+                              itemBuilder: (context, _) => Icon(
+                                Icons.star,
+                                color: Colors.amber,
+                              ),
+                              onRatingUpdate: (rating) {
+                                print(rating);
+                              },
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.pop(context, 'Cancel'),
+                                child: Text(
+                                  'Cancel',
+                                  style: myTheme.textTheme.labelMedium,
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () => Navigator.pop(context, 'OK'),
+                                child: Text('OK',
+                                    style: myTheme.textTheme.labelMedium),
+                              ),
+                            ],
+                          ),
+                        );
+
                         setState(() {
                           _isButtonDisabled = true;
                         });
                       },
               )
             ],
-          )
+          ),
         ],
       ),
     );

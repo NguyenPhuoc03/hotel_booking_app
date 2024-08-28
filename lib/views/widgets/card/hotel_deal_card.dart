@@ -12,7 +12,7 @@ class HotelDealCard extends StatelessWidget {
       onTap: () => onTap(),
       child: Badge(
         label: Text("-75%"),
-        offset: Offset(-10, 2),
+        offset: Offset(-18, 11),
         largeSize: 30,
         smallSize: 0,
         child: Container(
@@ -25,14 +25,14 @@ class HotelDealCard extends StatelessWidget {
                       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXWH_Uk5GhUcs_IXcOtmVodFFYSDVF-blVVw&s'),
                   fit: BoxFit.cover,
                 )),
-            margin: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+            margin: EdgeInsets.symmetric(horizontal: 8),
             child: Stack(
               children: [
                 Positioned(
                   bottom: 10,
                   left: 15,
                   child: Text(
-                    'Lux Hotel with a Pool',
+                    'Lux Hotel with a Pool ah foahf oahf oahfoaf',
                     style: myTheme.textTheme.titleMedium,
                   ),
                 ),
