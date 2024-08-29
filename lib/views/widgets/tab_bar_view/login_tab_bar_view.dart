@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hotel_booking_app/resources/utils/local_storage.dart';
-import 'package:hotel_booking_app/viewmodels/login_view_model.dart';
-import 'package:provider/provider.dart';
+import 'package:hotel_booking_app/views/widgets/button/min_h60_button.dart';
+import 'package:hotel_booking_app/views/widgets/text_field/information_text_field.dart';
 
 class LoginTabBarView extends StatefulWidget {
   const LoginTabBarView({super.key});
@@ -19,7 +19,16 @@ class _LoginTabBarViewState extends State<LoginTabBarView> {
   @override
   void initState() {
     super.initState();
+
     _getCheckRemember();
+  }
+
+  @override
+  void dispose() {
+    //textfield bi xoa thi controller dung lang nghe va bi xoa
+    lEmailAddressController.dispose();
+    lPasswordController.dispose();
+    super.dispose();
   }
 
   Future<void> _getCheckRemember() async {
@@ -39,7 +48,7 @@ class _LoginTabBarViewState extends State<LoginTabBarView> {
           topRight: Radius.circular(30),
         )),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 32.0),
+          padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -55,40 +64,22 @@ class _LoginTabBarViewState extends State<LoginTabBarView> {
               const SizedBox(
                 height: 50,
               ),
-              Text(
-                "Email address",
-                style: myTheme.textTheme.bodySmall,
-              ),
-              TextField(
+              InformationTextField(
                 controller: lEmailAddressController,
-                style: myTheme.textTheme.displayMedium,
+                labelText: "Email address",
+                placeholder: "",
               ),
               const SizedBox(
-                height: 20,
+                height: 15,
               ),
-              Text(
-                "Password",
-                style: myTheme.textTheme.bodySmall,
+              InformationTextField(
+                controller: lPasswordController,
+                labelText: "Password",
+                placeholder: "",
+                isPasswordTextField: true,
               ),
-              Consumer<LoginViewModel>(builder: (context, viewModel, child) {
-                return TextField(
-                  controller: lPasswordController,
-                  decoration: InputDecoration(
-                    suffixIcon: IconButton(
-                      onPressed: viewModel.togglePasswordVisible,
-                      icon: Icon(
-                        viewModel.isPasswordVisible
-                            ? Icons.visibility
-                            : Icons.visibility_off,
-                      ),
-                    ),
-                  ),
-                  style: myTheme.textTheme.displayMedium,
-                  obscureText: viewModel.isPasswordVisible,
-                );
-              }),
               const SizedBox(
-                height: 20,
+                height: 15,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -118,22 +109,14 @@ class _LoginTabBarViewState extends State<LoginTabBarView> {
               const SizedBox(
                 height: 20,
               ),
-              ElevatedButton(
-                  onPressed: () async {
-                    LocalStorage.setBoolValue(
-                        "isCheckedRemember", rememberUser);
-                    Navigator.pushNamedAndRemoveUntil(
-                        context, "/root", (route) => false);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    shape: const StadiumBorder(),
-                    elevation: 20,
-                    minimumSize: const Size.fromHeight(60),
-                  ),
-                  child: Text(
-                    "LOGIN",
-                    style: myTheme.textTheme.bodyMedium,
-                  )),
+              MinH60Button(
+                onPressed: () async {
+                  LocalStorage.setBoolValue("isCheckedRemember", rememberUser);
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, "/root", (route) => false);
+                },
+                labelButton: "LOGIN",
+              ),
               const SizedBox(
                 height: 20,
               ),

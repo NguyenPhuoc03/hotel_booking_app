@@ -34,6 +34,19 @@ class ProfileScreen extends StatelessWidget {
             ProfileItemListTitle(
               leading: Icon(Icons.manage_accounts_rounded),
               title: "Edit profile",
+              onTap: () {
+                Navigator.pushNamed(context, '/editProfile');
+              },
+            ),
+            Divider(
+              height: 4,
+            ),
+            ProfileItemListTitle(
+              leading: Icon(Icons.lock),
+              title: "Change Password",
+              onTap: () {
+                Navigator.pushNamed(context, '/changePassword');
+              },
             ),
             Divider(
               height: 4,
@@ -41,13 +54,15 @@ class ProfileScreen extends StatelessWidget {
             ProfileItemListTitle(
               leading: Icon(Icons.help_sharp),
               title: "Help",
+              onTap: () {},
             ),
             Divider(
               height: 4,
             ),
             ProfileItemListTitle(
-              leading: Icon(Icons.help_sharp),
-              title: "Help",
+              leading: Icon(Icons.settings),
+              title: "Setting",
+              onTap: () {},
             ),
             Divider(
               height: 4,
@@ -55,6 +70,7 @@ class ProfileScreen extends StatelessWidget {
             ProfileItemListTitle(
               leading: Icon(Icons.logout),
               title: "Log out",
+              onTap: () {},
             ),
             Divider(
               height: 4,

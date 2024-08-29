@@ -97,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
               //showBadge: false,
               child: IconButton(
                 onPressed: () {
-                 Navigator.pushNamed(context, '/notification');
+                  Navigator.pushNamed(context, '/notification');
                 },
                 icon: Icon(Icons.notifications, size: 32),
               ),
@@ -229,7 +229,12 @@ class _HomeScreenState extends State<HomeScreen> {
               physics: NeverScrollableScrollPhysics(),
               itemCount: 10,
               itemBuilder: (context, index) {
-                return HotelInformationColumnCard();
+                return HotelInformationColumnCard(
+                  onTap: () {
+                    Navigator.pushNamed(context, 'hotelDetail');
+                    print("near you");
+                  },
+                );
               },
             )
           ]),

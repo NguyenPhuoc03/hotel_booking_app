@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class HotelInformationColumnCard extends StatefulWidget {
-  HotelInformationColumnCard({super.key});
+  HotelInformationColumnCard({super.key, required this.onTap});
+  final VoidCallback onTap;
 
   @override
   State<HotelInformationColumnCard> createState() => _HotelInformationColumnCardState();
@@ -13,10 +14,8 @@ class _HotelInformationColumnCardState extends State<HotelInformationColumnCard>
   Widget build(BuildContext context) {
     myTheme = Theme.of(context);
     return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(context, 'hotelDetail');
-        print("near you");
-      },
+      onTap: widget.onTap,
+ 
       child: Card(
         margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         elevation: 2,

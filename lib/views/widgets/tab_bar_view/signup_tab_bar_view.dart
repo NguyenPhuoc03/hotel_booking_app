@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hotel_booking_app/views/widgets/button/min_h60_button.dart';
+import 'package:hotel_booking_app/views/widgets/text_field/information_text_field.dart';
 import 'package:provider/provider.dart';
-import 'package:hotel_booking_app/viewmodels/signup_view_model.dart';
 
 class SignupTabBarView extends StatefulWidget {
   const SignupTabBarView({super.key});
@@ -17,143 +18,108 @@ class _SignupTabBarViewState extends State<SignupTabBarView> {
   TextEditingController rConfirmPasswordController = TextEditingController();
 
   @override
+  void dispose() {
+    //textfield bi xoa thi controller dung lang nghe va bi xoa
+    rFullNameController.dispose();
+    rEmailAddressController.dispose();
+    rPasswordController.dispose();
+    rConfirmPasswordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     myTheme = Theme.of(context);
-    return Consumer<SignupViewModel>(
-      builder: (context, viewModel, child) {
-        return Card(
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30),
-              topRight: Radius.circular(30),
+    return Card(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Create Your Account",
+              style: myTheme.textTheme.headlineMedium
+                  ?.copyWith(color: myTheme.primaryColor),
             ),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Create Your Account",
-                  style: myTheme.textTheme.headlineMedium
-                      ?.copyWith(color: myTheme.primaryColor),
-                ),
-                Text(
-                  "Please register with your information",
-                  style: myTheme.textTheme.bodySmall,
-                ),
-                const SizedBox(
-                  height: 25,
-                ),
-                Text(
-                  "Full name",
-                  style: myTheme.textTheme.bodySmall,
-                ),
-                TextField(
-                  controller: rFullNameController,
-                  style: myTheme.textTheme.displayMedium,
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Text(
-                  "Email address",
-                  style: myTheme.textTheme.bodySmall,
-                ),
-                TextField(
-                  controller: rEmailAddressController,
-                  style: myTheme.textTheme.displayMedium,
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Text(
-                  "Password",
-                  style: myTheme.textTheme.bodySmall,
-                ),
-                TextField(
-                  controller: rPasswordController,
-                  decoration: InputDecoration(
-                    suffixIcon: IconButton(
-                      onPressed: viewModel.togglePasswordVisible,
-                      icon: Icon(
-                        viewModel.isPasswordVisible
-                            ? Icons.visibility
-                            : Icons.visibility_off,
-                      ),
-                    ),
+            Text(
+              "Please register with your information",
+              style: myTheme.textTheme.bodySmall,
+            ),
+            const SizedBox(
+              height: 25,
+            ),
+            InformationTextField(
+              controller: rFullNameController,
+              labelText: "Full name",
+              placeholder: "",
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            InformationTextField(
+              controller: rEmailAddressController,
+              labelText: "Email address",
+              placeholder: "",
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            InformationTextField(
+              controller: rPasswordController,
+              labelText: "Password",
+              placeholder: "",
+              isPasswordTextField: true,
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            InformationTextField(
+              controller: rConfirmPasswordController,
+              labelText: "Confirm password",
+              placeholder: "",
+              isPasswordTextField: true,
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            MinH60Button(
+              onPressed: () {},
+              labelButton: "REGISTER",
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Center(
+              child: Column(
+                children: [
+                  Text(
+                    "Or login with",
+                    style: myTheme.textTheme.bodySmall,
                   ),
-                  obscureText: viewModel.isPasswordVisible,
-                  style: myTheme.textTheme.displayMedium,
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Text(
-                  "Confirm password",
-                  style: myTheme.textTheme.bodySmall,
-                ),
-                TextField(
-                  controller: rConfirmPasswordController,
-                  decoration: InputDecoration(
-                    suffixIcon: IconButton(
-                      onPressed: 
-                        viewModel.toggleConfirmPasswordVisible,
-                      icon: Icon(
-                        viewModel.isConfirmPasswordVisible
-                            ? Icons.visibility
-                            : Icons.visibility_off,
-                      ),
-                    ),
+                  const SizedBox(
+                    height: 5,
                   ),
-                  obscureText: viewModel.isConfirmPasswordVisible,
-                  style: myTheme.textTheme.displayMedium,
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    shape: const StadiumBorder(),
-                    elevation: 20,
-                    minimumSize: const Size.fromHeight(60),
-                  ),
-                  child: Text(
-                    "REGISTER",
-                    style: myTheme.textTheme.bodyMedium,
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Center(
-                  child: Column(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Text(
-                        "Or login with",
-                        style: myTheme.textTheme.bodySmall,
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Tab(icon: Image.asset("assets/images/facebook.png")),
-                          Tab(
-                            icon: Image.asset("assets/images/google.png"),
-                          ),
-                        ],
+                      Tab(icon: Image.asset("assets/images/facebook.png")),
+                      Tab(
+                        icon: Image.asset("assets/images/google.png"),
                       ),
                     ],
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        );
-      },
+          ],
+        ),
+      ),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hotel_booking_app/views/widgets/bottom_sheet/room_selection_bottom_sheet.dart.dart';
+import 'package:hotel_booking_app/views/widgets/button/w120_h50_button.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class HotelUtilitiesCard extends StatelessWidget {
@@ -86,21 +87,8 @@ class HotelUtilitiesCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue.shade600,
-                      elevation: 2.0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      fixedSize: Size(120, 50),
-                    ),
-                    child: Text(
-                      "Select",
-                      style: myTheme.textTheme.titleMedium?.copyWith(
-                        letterSpacing: 1.25,
-                      ),
-                    ),
+                  W120H50Button(
+                    labelButton: "Select",
                     onPressed: () {
                       showMaterialModalBottomSheet(
                         context: context,

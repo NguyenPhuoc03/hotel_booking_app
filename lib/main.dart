@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hotel_booking_app/resources/utils/theme_utils.dart';
 import 'package:hotel_booking_app/viewmodels/booking_view_model.dart';
-import 'package:hotel_booking_app/viewmodels/login_view_model.dart';
 import 'package:hotel_booking_app/viewmodels/onboarding_view_model.dart';
-import 'package:hotel_booking_app/viewmodels/signup_view_model.dart';
 import 'package:hotel_booking_app/views/screens/booking_confirmation_screen.dart';
-import 'package:hotel_booking_app/views/screens/home_screen.dart';
+import 'package:hotel_booking_app/views/screens/change_password_screen.dart';
+import 'package:hotel_booking_app/views/screens/edit_profile_screen.dart';
 import 'package:hotel_booking_app/views/screens/auth_screen.dart';
 import 'package:hotel_booking_app/views/screens/hotel_detail_screen.dart';
 import 'package:hotel_booking_app/views/screens/hotel_list_screen.dart';
@@ -28,18 +27,15 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<OnboardingViewModel>(
             create: (_) => OnboardingViewModel()),
-        ChangeNotifierProvider<SignupViewModel>(
-            create: (_) => SignupViewModel()),
-        ChangeNotifierProvider<LoginViewModel>(create: (_) => LoginViewModel()),
         ChangeNotifierProvider(create: (_) => BookingViewModel()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeApp.myTheme,
         title: "Booking Hotel",
-        //initialRoute: "/",
+        initialRoute: "/",
 
-        initialRoute: '/root',
+        //initialRoute: '/root',
 
         routes: {
           '/': (context) => OnboardingScreen(),
@@ -49,7 +45,9 @@ class MyApp extends StatelessWidget {
           'hotelDetail': (context) => HotelDetailScreen(),
           'bookingConfirmation': (context) => BookingConfirmationScreen(),
           '/hotelList': (context) => HotelListScreen(),
-          '/searchNextStep': (context) =>  SearchNextStepScreen(),
+          '/searchNextStep': (context) => SearchNextStepScreen(),
+          '/editProfile': (context) => EditProfileScreen(),
+          '/changePassword': (context) => ChangePasswordScreen(),
         },
       ),
     );

@@ -21,7 +21,12 @@ class _HotelListScreenState extends State<HotelListScreen> {
           shrinkWrap: true,
           itemCount: 10,
           itemBuilder: (context, index) {
-            return HotelInformationColumnCard();
+            return HotelInformationColumnCard(
+              onTap: () {
+                Navigator.pushNamed(context, 'hotelDetail');
+                print("near you");
+              },
+            );
           },
         ));
   }

@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
 class ProfileItemListTitle extends StatelessWidget {
-  ProfileItemListTitle({super.key, required this.leading, required this.title});
+  ProfileItemListTitle(
+      {super.key,
+      required this.leading,
+      required this.title,
+      required this.onTap});
+  final VoidCallback onTap;
   final Icon leading;
   final String title;
   late ThemeData myTheme;
@@ -20,7 +25,11 @@ class ProfileItemListTitle extends StatelessWidget {
         title,
         style: myTheme.textTheme.bodyMedium,
       ),
-      trailing: Icon(Icons.arrow_forward_ios, size: 25,),
+      trailing: Icon(
+        Icons.arrow_forward_ios,
+        size: 25,
+      ),
+      onTap: onTap,
     );
   }
 }
