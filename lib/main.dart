@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hotel_booking_app/resources/utils/local_storage.dart';
+import 'package:hotel_booking_app/resources/utils/shared_preferences_keys.dart';
 import 'package:hotel_booking_app/resources/utils/theme_utils.dart';
 import 'package:hotel_booking_app/viewmodels/booking_view_model.dart';
-import 'package:hotel_booking_app/viewmodels/onboarding_view_model.dart';
 import 'package:hotel_booking_app/views/screens/booking_confirmation_screen.dart';
 import 'package:hotel_booking_app/views/screens/change_password_screen.dart';
 import 'package:hotel_booking_app/views/screens/edit_profile_screen.dart';
@@ -14,31 +15,31 @@ import 'package:hotel_booking_app/views/screens/root_screen.dart';
 import 'package:hotel_booking_app/views/screens/search_next_step_screen.dart';
 import 'package:provider/provider.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  bool hasVisitedApp =
+      await LocalStorage.getBoolValue(SharedPreferencesKeys.hasVisitedApp);
+
+  runApp(MyApp(hasVisitedApp: hasVisitedApp));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final bool hasVisitedApp;
+  const MyApp({Key? key, required this.hasVisitedApp}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<OnboardingViewModel>(
-            create: (_) => OnboardingViewModel()),
         ChangeNotifierProvider(create: (_) => BookingViewModel()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeApp.myTheme,
         title: "Booking Hotel",
-        initialRoute: "/",
-
-        //initialRoute: '/root',
-
+        initialRoute: hasVisitedApp ? '/auth' : '/onboarding',
         routes: {
-          '/': (context) => OnboardingScreen(),
+          '/onboarding': (context) => OnboardingScreen(),
           '/root': (context) => RootScreen(),
           '/auth': (context) => AuthScreen(),
           '/notification': (context) => NotificationScreen(),
