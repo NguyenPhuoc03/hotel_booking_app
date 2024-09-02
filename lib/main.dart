@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hotel_booking_app/resources/utils/local_storage.dart';
-import 'package:hotel_booking_app/resources/utils/shared_preferences_keys.dart';
-import 'package:hotel_booking_app/resources/utils/theme_utils.dart';
+import 'package:hotel_booking_app/utils/local_storage.dart';
+import 'package:hotel_booking_app/utils/shared_preferences_keys.dart';
+import 'package:hotel_booking_app/utils/theme_utils.dart';
+import 'package:hotel_booking_app/viewmodels/auth_viewmodel.dart';
 import 'package:hotel_booking_app/viewmodels/booking_view_model.dart';
 import 'package:hotel_booking_app/views/screens/booking_confirmation_screen.dart';
 import 'package:hotel_booking_app/views/screens/change_password_screen.dart';
@@ -14,9 +15,14 @@ import 'package:hotel_booking_app/views/screens/onboarding_screen.dart';
 import 'package:hotel_booking_app/views/screens/root_screen.dart';
 import 'package:hotel_booking_app/views/screens/search_next_step_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+  options: DefaultFirebaseOptions.currentPlatform,
+);
   bool hasVisitedApp =
       await LocalStorage.getBoolValue(SharedPreferencesKeys.hasVisitedApp);
 
@@ -32,6 +38,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => BookingViewModel()),
+        ChangeNotifierProvider(create: (_) => AuthViewModel()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hotel_booking_app/resources/utils/local_storage.dart';
-import 'package:hotel_booking_app/resources/utils/onboarding_tabs.dart';
-import 'package:hotel_booking_app/resources/utils/shared_preferences_keys.dart';
+import 'package:hotel_booking_app/utils/local_storage.dart';
+import 'package:hotel_booking_app/utils/onboarding_tabs.dart';
+import 'package:hotel_booking_app/utils/shared_preferences_keys.dart';
 import 'package:intro_slider/intro_slider.dart';
 
 class OnboardingScreen extends StatefulWidget {

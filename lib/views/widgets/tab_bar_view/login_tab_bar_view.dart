@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:hotel_booking_app/resources/utils/local_storage.dart';
+import 'package:hotel_booking_app/utils/local_storage.dart';
+import 'package:hotel_booking_app/utils/shared_preferences_keys.dart';
+import 'package:hotel_booking_app/viewmodels/auth_viewmodel.dart';
 import 'package:hotel_booking_app/views/widgets/button/min_h60_button.dart';
 import 'package:hotel_booking_app/views/widgets/text_field/information_text_field.dart';
+import 'package:provider/provider.dart';
 
 class LoginTabBarView extends StatefulWidget {
   const LoginTabBarView({super.key});
@@ -32,15 +35,29 @@ class _LoginTabBarViewState extends State<LoginTabBarView> {
   }
 
   Future<void> _getCheckRemember() async {
-    bool value = await LocalStorage.getBoolValue('isCheckedRemember');
-    setState(() {
-      rememberUser = value;
-    });
+    bool value = await LocalStorage.getBoolValue(
+        SharedPreferencesKeys.isCheckedRemember);
+    if (value) {
+      String emailUser =
+          await LocalStorage.getStringValue(SharedPreferencesKeys.emailUser);
+      String passwordUser =
+          await LocalStorage.getStringValue(SharedPreferencesKeys.passwordUser);
+      setState(() {
+        rememberUser = value;
+        lEmailAddressController.text = emailUser ?? "";
+        lPasswordController.text = passwordUser ?? "";
+      });
+    } else {
+      setState(() {
+        rememberUser = value;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     myTheme = Theme.of(context);
+    final authViewModel = Provider.of<AuthViewModel>(context);
     return Card(
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
@@ -111,9 +128,27 @@ class _LoginTabBarViewState extends State<LoginTabBarView> {
               ),
               MinH60Button(
                 onPressed: () async {
-                  LocalStorage.setBoolValue("isCheckedRemember", rememberUser);
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, "/root", (route) => false);
+                  if (!authViewModel.isLoading) {
+                    await authViewModel.loginWithEmail(
+                      lEmailAddressController.text,
+                      lPasswordController.text,
+                    );
+                    if (authViewModel.user != null) {
+                      LocalStorage.setBoolValue(
+                          SharedPreferencesKeys.isCheckedRemember,
+                          rememberUser);
+                      if (rememberUser) {
+                        LocalStorage.setStringValue(
+                            SharedPreferencesKeys.emailUser,
+                            lEmailAddressController.text);
+                        LocalStorage.setStringValue(
+                            SharedPreferencesKeys.passwordUser,
+                            lPasswordController.text);
+                      }
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, "/root", (route) => false);
+                    }
+                  }
                 },
                 labelButton: "LOGIN",
               ),

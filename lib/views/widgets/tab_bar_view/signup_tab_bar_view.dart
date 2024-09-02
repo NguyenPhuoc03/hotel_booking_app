@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:hotel_booking_app/viewmodels/auth_viewmodel.dart';
 import 'package:hotel_booking_app/views/widgets/button/min_h60_button.dart';
 import 'package:hotel_booking_app/views/widgets/text_field/information_text_field.dart';
 import 'package:provider/provider.dart';
 
 class SignupTabBarView extends StatefulWidget {
-  const SignupTabBarView({super.key});
+  final VoidCallback onRegisterSuccess;
+  const SignupTabBarView({super.key, required this.onRegisterSuccess});
 
   @override
   State<SignupTabBarView> createState() => _SignupTabBarViewState();
@@ -30,6 +32,7 @@ class _SignupTabBarViewState extends State<SignupTabBarView> {
   @override
   Widget build(BuildContext context) {
     myTheme = Theme.of(context);
+    final authViewModel = Provider.of<AuthViewModel>(context);
     return Card(
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -89,7 +92,18 @@ class _SignupTabBarViewState extends State<SignupTabBarView> {
               height: 15,
             ),
             MinH60Button(
-              onPressed: () {},
+              onPressed: () async {
+                if (!authViewModel.isLoading) {
+                  await authViewModel.registerWithEmail(
+                    rFullNameController.text,
+                    rEmailAddressController.text,
+                    rPasswordController.text,
+                  );
+                  if (authViewModel.user != null) {
+                    widget.onRegisterSuccess();
+                  }
+                }
+              },
               labelButton: "REGISTER",
             ),
             const SizedBox(

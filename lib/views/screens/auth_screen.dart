@@ -26,6 +26,9 @@ class _AuthScreenState extends State<AuthScreen>
     _tabController.dispose();
     super.dispose();
   }
+  void _switchToLogin() {
+    _tabController.animateTo(0);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -106,9 +109,9 @@ class _AuthScreenState extends State<AuthScreen>
               child: TabBarView(
                 controller: _tabController,
                 physics: const NeverScrollableScrollPhysics(),
-                children: const [
-                  LoginTabBarView(),
-                  SignupTabBarView(),
+                children: [
+                  const LoginTabBarView(),
+                  SignupTabBarView(onRegisterSuccess: _switchToLogin),
                 ],
               ),
             ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:hotel_booking_app/viewmodels/auth_viewmodel.dart';
 import 'package:hotel_booking_app/views/widgets/list_title/profile_item_list_title.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -8,6 +10,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     myTheme = Theme.of(context);
+    final authViewModel = Provider.of<AuthViewModel>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue.shade400,
@@ -70,7 +73,12 @@ class ProfileScreen extends StatelessWidget {
             ProfileItemListTitle(
               leading: Icon(Icons.logout),
               title: "Log out",
-              onTap: () {},
+              onTap: () {
+                authViewModel.signOut();
+                if (authViewModel.user == null) {
+                  Navigator.pushReplacementNamed(context, '/auth');
+                }
+              },
             ),
             Divider(
               height: 4,
