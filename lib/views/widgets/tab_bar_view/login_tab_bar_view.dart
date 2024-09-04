@@ -15,6 +15,7 @@ class LoginTabBarView extends StatefulWidget {
 
 class _LoginTabBarViewState extends State<LoginTabBarView> {
   late ThemeData myTheme;
+
   TextEditingController lEmailAddressController = TextEditingController();
   TextEditingController lPasswordController = TextEditingController();
   bool rememberUser = false;
@@ -85,6 +86,7 @@ class _LoginTabBarViewState extends State<LoginTabBarView> {
                 controller: lEmailAddressController,
                 labelText: "Email address",
                 placeholder: "",
+                errorText: authViewModel.errorEmail,
               ),
               const SizedBox(
                 height: 15,
@@ -94,6 +96,7 @@ class _LoginTabBarViewState extends State<LoginTabBarView> {
                 labelText: "Password",
                 placeholder: "",
                 isPasswordTextField: true,
+                errorText: authViewModel.errorPassword,
               ),
               const SizedBox(
                 height: 15,
@@ -128,12 +131,13 @@ class _LoginTabBarViewState extends State<LoginTabBarView> {
               ),
               MinH60Button(
                 onPressed: () async {
+                  FocusScope.of(context).unfocus();
                   if (!authViewModel.isLoading) {
                     await authViewModel.loginWithEmail(
                       lEmailAddressController.text,
                       lPasswordController.text,
                     );
-                    if (authViewModel.user != null) {
+                    if (!authViewModel.isError) {
                       LocalStorage.setBoolValue(
                           SharedPreferencesKeys.isCheckedRemember,
                           rememberUser);

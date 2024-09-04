@@ -54,82 +54,77 @@ class _SignupTabBarViewState extends State<SignupTabBarView> {
               "Please register with your information",
               style: myTheme.textTheme.bodySmall,
             ),
-            const SizedBox(
-              height: 25,
-            ),
+            //widget neu dang ki co loi: firebase, internet,...
+            authViewModel.isError
+                ? Container(
+                    color: Colors.transparent,
+                    height: 25,
+                    child: Center(
+                      child: Text(
+                        authViewModel.errorMessage ?? '',
+                        style: myTheme.textTheme.bodySmall!
+                            .copyWith(color: Colors.red),
+                      ),
+                    ),
+                  )
+                : const SizedBox(
+                    height: 25,
+                  ),
             InformationTextField(
               controller: rFullNameController,
               labelText: "Full name",
               placeholder: "",
+              errorText: authViewModel.errorFullName,
             ),
             const SizedBox(
-              height: 15,
+              height: 10,
             ),
             InformationTextField(
               controller: rEmailAddressController,
               labelText: "Email address",
               placeholder: "",
+              errorText: authViewModel.errorEmail,
             ),
             const SizedBox(
-              height: 15,
+              height: 10,
             ),
             InformationTextField(
               controller: rPasswordController,
               labelText: "Password",
               placeholder: "",
               isPasswordTextField: true,
+              errorText: authViewModel.errorPassword,
             ),
             const SizedBox(
-              height: 15,
+              height: 10,
             ),
             InformationTextField(
               controller: rConfirmPasswordController,
               labelText: "Confirm password",
               placeholder: "",
               isPasswordTextField: true,
+              errorText: authViewModel.errorCornfirmPassword,
             ),
             const SizedBox(
               height: 15,
             ),
             MinH60Button(
               onPressed: () async {
+                //tat ban phim
+                FocusScope.of(context).unfocus();
                 if (!authViewModel.isLoading) {
                   await authViewModel.registerWithEmail(
-                    rFullNameController.text,
-                    rEmailAddressController.text,
-                    rPasswordController.text,
-                  );
-                  if (authViewModel.user != null) {
+                      rFullNameController.text,
+                      rEmailAddressController.text,
+                      rPasswordController.text,
+                      rConfirmPasswordController.text);
+                  //neu khong co loi (isError == false) thi moi chuyen tab
+                  if (!authViewModel.isError) {
                     widget.onRegisterSuccess();
                   }
                 }
               },
               labelButton: "REGISTER",
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Center(
-              child: Column(
-                children: [
-                  Text(
-                    "Or login with",
-                    style: myTheme.textTheme.bodySmall,
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Tab(icon: Image.asset("assets/images/facebook.png")),
-                      Tab(
-                        icon: Image.asset("assets/images/google.png"),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
             ),
           ],
         ),

@@ -10,28 +10,42 @@ class AuthService {
     try {
       UserCredential userCredential = await _firebasAuth
           .createUserWithEmailAndPassword(email: email, password: password);
-      //tao user thanh cong
+      // User creation successful
       if (userCredential.user != null) {
         UserService userService = UserService();
-        userService.createUserFirestore(Users(
-            uid: userCredential.user!.uid,
-            email: email,
-            fullName: fullName,
-            phoneNumber: '',
-            createAt: ''));
+        //xu li loi neu thanh cong o auth nhung that bai o firestore
+        try {
+          await userService.createUserFirestore(Users(
+              uid: userCredential.user!.uid,
+              email: email,
+              fullName: fullName,
+              phoneNumber: '',
+              createAt: ''));
+        } catch (firestoreError) {
+          await userCredential.user!.delete();
+          throw 'firestore-write-failed';
+        }
       }
       return userCredential.user;
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
+      switch (e.code) {
+        case 'network-request-failed':
+          throw 'network-request-failed';
+        case 'too-many-requests':
+          throw 'too-many-requests';
+        case 'invalid-email':
+          throw 'invalid-email';
+        case 'email-already-in-use':
+          throw 'email-already-in-use';
+        case 'weak-password':
+          throw 'weak-pass';
+        default:
+          throw 'unknown';
       }
     } catch (e) {
       print('auth_service: $e');
       return null;
     }
-    return null;
   }
 
   Future<User?> loginWithEmail(String email, String password) async {
@@ -40,16 +54,18 @@ class AuthService {
           .signInWithEmailAndPassword(email: email, password: password);
       return userCredential.user;
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        print('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
+      switch (e.code) {
+        case 'invalid-email':
+          throw 'invalid-email';
+        case 'wrong-password':
+          throw 'wrong-password';
+        default:
+          throw 'unknown';
       }
     } catch (e) {
       print('(auth_service) Login failed: $e');
       return null;
     }
-    return null;
   }
 
   void signOut() async {

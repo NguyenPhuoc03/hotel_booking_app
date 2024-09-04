@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hotel_booking_app/viewmodels/auth_viewmodel.dart';
 import 'package:hotel_booking_app/views/widgets/tab_bar_view/login_tab_bar_view.dart';
 import 'package:hotel_booking_app/views/widgets/tab_bar_view/signup_tab_bar_view.dart';
+import 'package:provider/provider.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -14,11 +16,18 @@ class _AuthScreenState extends State<AuthScreen>
   late ThemeData myTheme;
   late Size mediaSize;
   late TabController _tabController;
+  late AuthViewModel _authViewModel;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
+    _authViewModel = Provider.of<AuthViewModel>(context, listen: false);
+    _tabController.addListener(() {
+      if (_tabController.indexIsChanging) {
+        _authViewModel.resetState(); // Reset state when tab changes
+      }
+    });
   }
 
   @override
@@ -26,6 +35,7 @@ class _AuthScreenState extends State<AuthScreen>
     _tabController.dispose();
     super.dispose();
   }
+
   void _switchToLogin() {
     _tabController.animateTo(0);
   }

@@ -6,10 +6,12 @@ class UserService {
       FirebaseFirestore.instance.collection("users");
 
   Future<void> createUserFirestore(Users user) async {
-    await collectionReference
-        .doc(user.uid)
-        .set(user.toDoc())
-        .onError((e, _) => print("user_service: $e"));
+    try {
+      await collectionReference.doc(user.uid).set(user.toDoc());
+    } catch (e) {
+      print("user_service: $e");
+      throw 'firestore-write-failed';
+    }
   }
 
   Future<void> updateUserFirestore(String uid,
@@ -32,10 +34,9 @@ class UserService {
   }
 
   Future<void> deleteUserFirestore(String uid) async {
-    await collectionReference.doc(uid)
-      .delete().then(
-        (doc) => print("$uid deleted successful"),
-        onError: (e) => print("user_service: $e"),
-      );
+    await collectionReference.doc(uid).delete().then(
+          (doc) => print("$uid deleted successful"),
+          onError: (e) => print("user_service: $e"),
+        );
   }
 }
