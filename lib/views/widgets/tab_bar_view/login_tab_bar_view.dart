@@ -3,7 +3,7 @@ import 'package:hotel_booking_app/utils/local_storage.dart';
 import 'package:hotel_booking_app/utils/shared_preferences_keys.dart';
 import 'package:hotel_booking_app/viewmodels/auth_viewmodel.dart';
 import 'package:hotel_booking_app/views/widgets/button/min_h60_button.dart';
-import 'package:hotel_booking_app/views/widgets/text_field/information_text_field.dart';
+import 'package:hotel_booking_app/views/widgets/text_field/information_no_border_text_field.dart';
 import 'package:provider/provider.dart';
 
 class LoginTabBarView extends StatefulWidget {
@@ -82,7 +82,7 @@ class _LoginTabBarViewState extends State<LoginTabBarView> {
               const SizedBox(
                 height: 50,
               ),
-              InformationTextField(
+              InformationNoBorderTextField(
                 controller: lEmailAddressController,
                 labelText: "Email address",
                 placeholder: "",
@@ -91,7 +91,7 @@ class _LoginTabBarViewState extends State<LoginTabBarView> {
               const SizedBox(
                 height: 15,
               ),
-              InformationTextField(
+              InformationNoBorderTextField(
                 controller: lPasswordController,
                 labelText: "Password",
                 placeholder: "",
@@ -118,7 +118,10 @@ class _LoginTabBarViewState extends State<LoginTabBarView> {
                     ),
                   ]),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, 'forgotPassword');
+                      authViewModel.resetState();
+                    },
                     child: Text(
                       "I forgot my password",
                       style: myTheme.textTheme.bodySmall,

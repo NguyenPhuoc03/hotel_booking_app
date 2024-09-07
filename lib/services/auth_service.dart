@@ -68,6 +68,21 @@ class AuthService {
     }
   }
 
+  Future<void> resetPasswordWithEmail(String email) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (e) {
+      switch (e.code) {
+        case 'invalid-email':
+          throw 'invalid-email';
+        case 'user-not-found':
+          throw 'user-not-found';
+      }
+    } catch (e) {
+      print('(auth_service) Reset password failed: $e');
+    }
+  }
+
   void signOut() async {
     try {
       await _firebasAuth.signOut();

@@ -123,6 +123,34 @@ class AuthViewModel extends ChangeNotifier {
     }
   }
 
+  Future<void> resetPasswordWithEmail(String email) async {
+    _isLoading = true;
+    _isError = false;
+    _errorEmail = null;
+    notifyListeners();
+
+    try {
+      if (email.isEmpty) {
+        _isError = true;
+        _errorEmail = "The email is not empty!";
+        notifyListeners();
+        return;
+      }
+      await _authService.resetPasswordWithEmail(email);
+    } catch (e) {
+      _isError = true;
+      switch (e) {
+        case 'invalid-email':
+          _errorEmail = "The email is not valid!";
+        case 'user-not-found':
+          _errorEmail = "User does not exist!";
+      }
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
   Future<void> signOut() async {
     _authService.signOut();
     _user = null;
@@ -130,8 +158,12 @@ class AuthViewModel extends ChangeNotifier {
   }
 
   void resetState() {
+    _isError = false;
+    _errorMessage = null;
+    _errorFullName = null;
     _errorEmail = null;
     _errorPassword = null;
+    _errorCornfirmPassword = null;
     notifyListeners();
   }
 }

@@ -8,6 +8,7 @@ import 'package:hotel_booking_app/views/screens/booking_confirmation_screen.dart
 import 'package:hotel_booking_app/views/screens/change_password_screen.dart';
 import 'package:hotel_booking_app/views/screens/edit_profile_screen.dart';
 import 'package:hotel_booking_app/views/screens/auth_screen.dart';
+import 'package:hotel_booking_app/views/screens/forgot_password_screen.dart';
 import 'package:hotel_booking_app/views/screens/hotel_detail_screen.dart';
 import 'package:hotel_booking_app/views/screens/hotel_list_screen.dart';
 import 'package:hotel_booking_app/views/screens/notification_screen.dart';
@@ -56,6 +57,7 @@ class MyApp extends StatelessWidget {
           '/searchNextStep': (context) => SearchNextStepScreen(),
           '/editProfile': (context) => EditProfileScreen(),
           '/changePassword': (context) => ChangePasswordScreen(),
+          'forgotPassword': (context) => ForgotPasswordScreen(),
         },
       ),
     );

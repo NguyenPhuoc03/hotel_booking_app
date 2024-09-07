@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hotel_booking_app/views/widgets/button/cancel_outline_button.dart';
 import 'package:hotel_booking_app/views/widgets/button/save_elevated_button.dart';
-import 'package:hotel_booking_app/views/widgets/text_field/information_text_field.dart';
+import 'package:hotel_booking_app/views/widgets/text_field/information_no_border_text_field.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -77,31 +77,31 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               const SizedBox(
                 height: 30,
               ),
-              InformationTextField(
+              InformationNoBorderTextField(
                 controller: fullNameController,
                 labelText: "Full Name",
                 placeholder: "Jonh Anne",
                 padding: EdgeInsets.symmetric(vertical: 16),
               ),
-              InformationTextField(
+              InformationNoBorderTextField(
                 controller: emailController,
                 labelText: "Email address",
                 placeholder: "example@gmail.com",
                 padding: EdgeInsets.symmetric(vertical: 16),
               ),
-              InformationTextField(
+              InformationNoBorderTextField(
                 controller: phoneController,
                 labelText: "Phone",
                 placeholder: "+84xxxxxxxxx",
                 padding: EdgeInsets.symmetric(vertical: 16),
               ),
-              InformationTextField(
+              InformationNoBorderTextField(
                 controller: birthDateController,
                 labelText: "Birthdate",
                 placeholder: "10/01/2003",
                 padding: EdgeInsets.symmetric(vertical: 16),
               ),
-              InformationTextField(
+              InformationNoBorderTextField(
                 controller: birthDateController,
                 labelText: "Location",
                 placeholder: "Quy Nhon",

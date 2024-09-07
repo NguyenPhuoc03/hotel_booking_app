@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hotel_booking_app/viewmodels/auth_viewmodel.dart';
 import 'package:hotel_booking_app/views/widgets/button/min_h60_button.dart';
-import 'package:hotel_booking_app/views/widgets/text_field/information_text_field.dart';
+import 'package:hotel_booking_app/views/widgets/text_field/information_no_border_text_field.dart';
 import 'package:provider/provider.dart';
 
 class SignupTabBarView extends StatefulWidget {
@@ -70,7 +70,7 @@ class _SignupTabBarViewState extends State<SignupTabBarView> {
                 : const SizedBox(
                     height: 25,
                   ),
-            InformationTextField(
+            InformationNoBorderTextField(
               controller: rFullNameController,
               labelText: "Full name",
               placeholder: "",
@@ -79,7 +79,7 @@ class _SignupTabBarViewState extends State<SignupTabBarView> {
             const SizedBox(
               height: 10,
             ),
-            InformationTextField(
+            InformationNoBorderTextField(
               controller: rEmailAddressController,
               labelText: "Email address",
               placeholder: "",
@@ -88,7 +88,7 @@ class _SignupTabBarViewState extends State<SignupTabBarView> {
             const SizedBox(
               height: 10,
             ),
-            InformationTextField(
+            InformationNoBorderTextField(
               controller: rPasswordController,
               labelText: "Password",
               placeholder: "",
@@ -98,7 +98,7 @@ class _SignupTabBarViewState extends State<SignupTabBarView> {
             const SizedBox(
               height: 10,
             ),
-            InformationTextField(
+            InformationNoBorderTextField(
               controller: rConfirmPasswordController,
               labelText: "Confirm password",
               placeholder: "",

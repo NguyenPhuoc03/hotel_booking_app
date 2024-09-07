@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class InformationTextField extends StatefulWidget {
-  InformationTextField({
+class InformationNoBorderTextField extends StatefulWidget {
+  InformationNoBorderTextField({
     super.key,
     required this.labelText,
     required this.placeholder,
@@ -18,10 +18,12 @@ class InformationTextField extends StatefulWidget {
   final String? errorText;
 
   @override
-  State<InformationTextField> createState() => _InformationTextFieldState();
+  State<InformationNoBorderTextField> createState() =>
+      _InformationNoBorderTextFieldState();
 }
 
-class _InformationTextFieldState extends State<InformationTextField> {
+class _InformationNoBorderTextFieldState
+    extends State<InformationNoBorderTextField> {
   bool isObscurePassword = true;
   late ThemeData myTheme;
   @override

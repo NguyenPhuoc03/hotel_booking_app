@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hotel_booking_app/views/widgets/button/save_elevated_button.dart';
-import 'package:hotel_booking_app/views/widgets/text_field/information_text_field.dart';
+import 'package:hotel_booking_app/views/widgets/text_field/information_no_border_text_field.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({super.key});
@@ -27,21 +27,21 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         padding: EdgeInsets.symmetric(horizontal: 32, vertical: 8),
         child: Column(
           children: [
-            InformationTextField(
+            InformationNoBorderTextField(
               controller: currentPasswordController,
               labelText: "Enter password",
               placeholder: "********",
               isPasswordTextField: true,
               padding: EdgeInsets.symmetric(vertical: 16),
             ),
-            InformationTextField(
+            InformationNoBorderTextField(
               controller: newPasswordController,
               labelText: "Enter new password",
               placeholder: "********",
               isPasswordTextField: true,
               padding: EdgeInsets.symmetric(vertical: 16),
             ),
-            InformationTextField(
+            InformationNoBorderTextField(
               controller: confirmPasswordController,
               labelText: "Enter confirm password",
               placeholder: "********",
