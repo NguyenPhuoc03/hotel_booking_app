@@ -109,6 +109,7 @@ class AuthViewModel extends ChangeNotifier {
 
     try {
       _user = await _authService.loginWithEmail(email, password);
+      
     } catch (e) {
       _isError = true;
       switch (e) {

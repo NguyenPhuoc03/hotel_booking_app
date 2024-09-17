@@ -27,7 +27,8 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.example.hotel_booking_app"
-    compileSdk flutter.compileSdkVersion
+    compileSdk 34
+    //flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
     compileOptions {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hotel_booking_app/utils/local_storage.dart';
 import 'package:hotel_booking_app/utils/shared_preferences_keys.dart';
 import 'package:hotel_booking_app/viewmodels/auth_viewmodel.dart';
+import 'package:hotel_booking_app/viewmodels/user_viewmodel.dart';
 import 'package:hotel_booking_app/views/widgets/button/min_h60_button.dart';
 import 'package:hotel_booking_app/views/widgets/text_field/information_no_border_text_field.dart';
 import 'package:provider/provider.dart';
@@ -141,6 +142,9 @@ class _LoginTabBarViewState extends State<LoginTabBarView> {
                       lPasswordController.text,
                     );
                     if (!authViewModel.isError) {
+                      await context
+                          .read<UserViewmodel>()
+                          .getCurrentUserFirestore();
                       LocalStorage.setBoolValue(
                           SharedPreferencesKeys.isCheckedRemember,
                           rememberUser);

@@ -1,12 +1,16 @@
 //import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hotel_booking_app/models/sightseeing_spot_model.dart';
+import 'package:hotel_booking_app/viewmodels/hotel_viewmodel.dart';
+import 'package:hotel_booking_app/viewmodels/user_viewmodel.dart';
 import 'package:hotel_booking_app/views/widgets/card/hotel_deal_card.dart';
 import 'package:hotel_booking_app/views/widgets/card/hotel_information_column_card.dart';
 import 'package:hotel_booking_app/views/widgets/card/hotel_information_stack_card.dart';
 import 'package:hotel_booking_app/views/widgets/other/custom_banner_container.dart';
 
 import 'package:badges/badges.dart' as badges;
+import 'package:provider/provider.dart';
 
 final List<SightseeingSpot> imgList = [
   SightseeingSpot(
@@ -76,20 +80,31 @@ class _HomeScreenState extends State<HomeScreen> {
           automaticallyImplyLeading: false,
           elevation: 0.0,
           toolbarHeight: 80.0,
-          title: const ListTile(
-            leading: CircleAvatar(
-              radius: 25,
-              backgroundImage: NetworkImage(
-                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWVsm9smljjDm9Ta08_It5JxUFPKIO6ZPfbA&s'),
-            ),
-            title: Text(
-              "Welcome back",
-              style: TextStyle(fontSize: 22),
-            ),
-            subtitle: Text(
-              "Nguyễn Huỳnh Phước",
-              style: TextStyle(fontSize: 18),
-            ),
+          title: Consumer<UserViewmodel>(
+            builder:
+                (BuildContext context, UserViewmodel value, Widget? child) {
+              return ListTile(
+                leading: ClipOval(
+                  child: CachedNetworkImage(
+                    height: 50,
+                    width: 50,
+                    imageUrl: value.user!.avatar,
+                    placeholder: (context, url) =>
+                        const CircularProgressIndicator(),
+                    errorWidget: (context, url, error) =>
+                        Image.asset('images/avatar.jpg'),
+                  ),
+                ),
+                title: const Text(
+                  "Welcome back",
+                  style: TextStyle(fontSize: 22),
+                ),
+                subtitle: Text(
+                  value.user?.fullName ?? "Unknown",
+                  style: const TextStyle(fontSize: 18),
+                ),
+              );
+            },
           ),
           actions: [
             badges.Badge(
@@ -149,14 +164,27 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   Expanded(
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 5,
-                      itemBuilder: (context, index) {
-                        return HotelInformationStackCard(onTap: () {
-                          Navigator.pushNamed(context, 'hotelDetail');
-                          print("popular hotel");
-                        });
+                    child: Consumer<HotelViewmodel>(
+                      builder: (BuildContext context, HotelViewmodel value,
+                          Widget? child) {
+                        if (value.isPopularLoading) {
+                          return Center(child: const  CircularProgressIndicator());
+                        } else if (value.popularHotels.isEmpty) {
+                          return const Text('Error');
+                        }
+                        return ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: value.popularHotels.length,
+                          itemBuilder: (context, index) {
+                            final popularHotel = value.popularHotels[index];
+                            return HotelInformationStackCard(
+                              onTap: () {
+                                Navigator.pushNamed(context, 'hotelDetail');
+                              },
+                              hotel: popularHotel,
+                            );
+                          },
+                        );
                       },
                     ),
                   )
@@ -191,14 +219,27 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   Expanded(
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 5,
-                      itemBuilder: (context, index) {
-                        return HotelDealCard(onTap: () {
-                          Navigator.pushNamed(context, 'hotelDetail');
-                          print("deals");
-                        });
+                    child: Consumer<HotelViewmodel>(
+                      builder: (BuildContext context, HotelViewmodel value,
+                          Widget? child) {
+                        if (value.isDealLoading) {
+                          return const CircularProgressIndicator();
+                        } else if (value.dealHotels.isEmpty) {
+                          return const Text('Error');
+                        }
+                        return ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: value.dealHotels.length,
+                          itemBuilder: (context, index) {
+                            final dealHotel = value.dealHotels[index];
+                            return HotelDealCard(
+                              onTap: () {
+                                Navigator.pushNamed(context, 'hotelDetail');
+                              },
+                              hotel: dealHotel,
+                            );
+                          },
+                        );
                       },
                     ),
                   )
@@ -224,19 +265,30 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-            ListView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                return HotelInformationColumnCard(
-                  onTap: () {
-                    Navigator.pushNamed(context, 'hotelDetail');
-                    print("near you");
+            Consumer<HotelViewmodel>(
+              builder:
+                  (BuildContext context, HotelViewmodel value, Widget? child) {
+                if (value.isNearYouLoading) {
+                  return const CircularProgressIndicator();
+                } else if (value.nearYouHotels.isEmpty) {
+                  return const Text('Hotels is empty');
+                }
+                return ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: value.nearYouHotels.length,
+                  itemBuilder: (context, index) {
+                    final nearYouHotel = value.nearYouHotels[index];
+                    return HotelInformationColumnCard(
+                      onTap: () {
+                        Navigator.pushNamed(context, 'hotelDetail');
+                      },
+                      hotel: nearYouHotel,
+                    );
                   },
                 );
               },
-            )
+            ),
           ]),
         ));
   }

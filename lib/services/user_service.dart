@@ -1,13 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hotel_booking_app/models/users.dart';
+import 'package:hotel_booking_app/services/auth_service.dart';
 
 class UserService {
   final CollectionReference collectionReference =
       FirebaseFirestore.instance.collection("users");
+  final AuthService authService = AuthService();
 
   Future<void> createUserFirestore(Users user) async {
     try {
-      await collectionReference.doc(user.uid).set(user.toDoc());
+      await collectionReference.doc(user.uid).set(user.toFirestore());
     } catch (e) {
       print("user_service: $e");
       throw 'firestore-write-failed';
@@ -38,5 +40,20 @@ class UserService {
           (doc) => print("$uid deleted successful"),
           onError: (e) => print("user_service: $e"),
         );
+  }
+
+  Future<Users?> getCurrentUserFirestore() async {
+    try {
+      final currentUser = await authService.getCurrentUser();
+      final userDocument =
+          await collectionReference.doc(currentUser?.uid).get();
+      if (!userDocument.exists) {
+        return null;
+      }
+      return Users.fromFirestore(userDocument);
+    } catch (e) {
+      print("user_service: $e");
+      throw 'firestore-read-failed';
+    }
   }
 }

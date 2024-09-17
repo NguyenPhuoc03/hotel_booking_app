@@ -51,6 +51,10 @@ dependencies:
   firebase_auth: ^5.2.0
   win32: ^5.5.4
   awesome_snackbar_content: ^0.1.1
+  cached_network_image: ^3.4.1
+  location: ^6.0.2
+  geocoding: ^3.0.0 #chuyen doi vi tri tu (x,y) sang tinh thanh
+  diacritic: ^0.1.5
 
 dev_dependencies:
   flutter_test:

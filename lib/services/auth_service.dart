@@ -16,11 +16,12 @@ class AuthService {
         //xu li loi neu thanh cong o auth nhung that bai o firestore
         try {
           await userService.createUserFirestore(Users(
-              uid: userCredential.user!.uid,
-              email: email,
-              fullName: fullName,
-              phoneNumber: '',
-              createAt: ''));
+            uid: userCredential.user!.uid,
+            email: email,
+            fullName: fullName,
+            phoneNumber: '',
+            createAt: DateTime.now(),
+          ));
         } catch (firestoreError) {
           await userCredential.user!.delete();
           throw 'firestore-write-failed';
@@ -80,6 +81,16 @@ class AuthService {
       }
     } catch (e) {
       print('(auth_service) Reset password failed: $e');
+    }
+  }
+
+  Future<User?> getCurrentUser() async {
+    try {
+      final currentUser = _firebasAuth.currentUser;
+      return currentUser;
+    } catch (e) {
+      print("auth_service: $e");
+      return null;
     }
   }
 

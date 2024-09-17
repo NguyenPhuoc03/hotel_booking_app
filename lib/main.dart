@@ -4,6 +4,8 @@ import 'package:hotel_booking_app/utils/shared_preferences_keys.dart';
 import 'package:hotel_booking_app/utils/theme_utils.dart';
 import 'package:hotel_booking_app/viewmodels/auth_viewmodel.dart';
 import 'package:hotel_booking_app/viewmodels/booking_view_model.dart';
+import 'package:hotel_booking_app/viewmodels/hotel_viewmodel.dart';
+import 'package:hotel_booking_app/viewmodels/user_viewmodel.dart';
 import 'package:hotel_booking_app/views/screens/booking_confirmation_screen.dart';
 import 'package:hotel_booking_app/views/screens/change_password_screen.dart';
 import 'package:hotel_booking_app/views/screens/edit_profile_screen.dart';
@@ -22,8 +24,8 @@ import 'firebase_options.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-  options: DefaultFirebaseOptions.currentPlatform,
-);
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   bool hasVisitedApp =
       await LocalStorage.getBoolValue(SharedPreferencesKeys.hasVisitedApp);
 
@@ -40,6 +42,8 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => BookingViewModel()),
         ChangeNotifierProvider(create: (_) => AuthViewModel()),
+        ChangeNotifierProvider(create: (_) => HotelViewmodel()),
+        ChangeNotifierProvider(create: (_) => UserViewmodel()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -1,36 +1,46 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hotel_booking_app/utils/config_key.dart';
+
 class Users {
-  final String uid;
+  final String? uid;
   final String email;
   final String fullName;
+  final String avatar;
   final String phoneNumber;
   final String role;
-  final String createAt;
+  final DateTime createAt;
 
   Users({
-    required this.uid,
+    this.uid,
     required this.email,
     required this.fullName,
+    this.avatar = ConfigKey.avatarUrl,
     required this.phoneNumber,
     this.role = "guest",
     required this.createAt,
   });
 
-  factory Users.fromDoc(Map<String, dynamic> user) {
+  factory Users.fromFirestore(DocumentSnapshot doc) {
+    Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
     return Users(
-        uid: user['uid'],
-        email: user['email'],
-        fullName: user['fullName'],
-        phoneNumber: user['phoneNumber'],
-        createAt: user['createAt']);
+      uid: doc.id,
+      email: data['email'],
+      fullName: data['fullName'],
+      avatar: data['avatar'],
+      phoneNumber: data['phoneNumber'],
+      role: data['role'],
+      createAt: (data['createAt'] as Timestamp).toDate(),
+    );
   }
 
-  Map<String, dynamic> toDoc() {
+  Map<String, dynamic> toFirestore() {
     return {
-      'uid': uid,
       'email': email,
       'fullName': fullName,
+      'avatar': avatar,
       'phoneNumber': phoneNumber,
-      'createAt': createAt
+      'role': role,
+      'createAt': Timestamp.fromDate(createAt),
     };
   }
 }

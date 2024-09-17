@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hotel_booking_app/models/hotel.dart';
 import 'package:hotel_booking_app/views/widgets/card/hotel_information_column_card.dart';
 
 class HotelListScreen extends StatefulWidget {
@@ -17,17 +18,19 @@ class _HotelListScreenState extends State<HotelListScreen> {
           title: Text("Home Detail"),
           backgroundColor: Colors.blue.shade400,
         ),
-        body: ListView.builder(
-          shrinkWrap: true,
-          itemCount: 10,
-          itemBuilder: (context, index) {
-            return HotelInformationColumnCard(
-              onTap: () {
-                Navigator.pushNamed(context, 'hotelDetail');
-                print("near you");
-              },
-            );
-          },
-        ));
+        // body: ListView.builder(
+        //   shrinkWrap: true,
+        //   itemCount: 10,
+        //   itemBuilder: (context, index) {
+        //     return HotelInformationColumnCard(
+        //       onTap: () {
+        //         Navigator.pushNamed(context, 'hotelDetail');
+        //         print("near you");
+        //       },
+        //       hotel: ,
+        //     );
+        //   },
+        // )
+        );
   }
 }
