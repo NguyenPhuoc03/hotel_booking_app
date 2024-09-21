@@ -3,7 +3,9 @@ class ConfigKey {
   static String hotel = "hotel";
   static String province = "province";
   static String district = "district";
+  static String avgRating = "avgRating";
   static String totalReview = "totalReview";
+  static String totalBook = "totalBook";
   static String discount = "discount";
 
   //avatar
@@ -12,4 +14,13 @@ class ConfigKey {
 
   //error
   static const String unknown = "Unknown";
+
+  //arguments hotel list
+  static const String type = "type";
+  static const String icon = "icon";
+  static const String popularHotels = "Popular Hotels";
+  static const String dealHotels = "Hot Hotel Deals";
+  static const String nearYouHotels = "Near You Hotels";
+  static const String mostBookedHotels = "Most Booked Hotels";
+  static const String highestRatedHotels = "Highest Rated Hotels";
 }

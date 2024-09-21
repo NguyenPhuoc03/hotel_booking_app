@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hotel_booking_app/utils/config_key.dart';
+import 'package:hotel_booking_app/utils/config_list.dart';
 import 'package:hotel_booking_app/views/widgets/card/hotel_category_card.dart';
-import 'package:hotel_booking_app/views/widgets/card/search_result_hotel_card.dart.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -10,19 +11,18 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  TextEditingController _searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         body: Container(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 8),
+                  padding: const EdgeInsets.symmetric(vertical: 8),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -50,23 +50,6 @@ class _SearchScreenState extends State<SearchScreen> {
                             ),
                           ),
                         ),
-
-                        //     CustomTextFormFieldSearch(
-                        //   hint: "Search...",
-                        //   prefixIcon: Icons.search,
-                        //   controller: _searchController,
-                        //   filled: true,
-                        //   suffixIcon: _searchController.text.isEmpty
-                        //       ? null
-                        //       : Icons.cancel,
-                        //   onTapSuffixIcon: () {
-                        //     _searchController.clear();
-                        //   },
-                        //   onChanged: (pure) {
-                        //     setState(() {});
-                        //   },
-                        //   onEditingComplete: () {},
-                        // ),
                       ),
                       IconButton(
                           onPressed: () {
@@ -92,17 +75,15 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 8,
-              ),
-              Text("Recommended for you"),
-              SizedBox(
-                height: 8,
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 8),
+                child: Text("Recommended for you"),
               ),
               Expanded(
                 child: GridView.builder(
-                    itemCount: 5,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    itemCount: ConfigList.hotelTypes.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       mainAxisSpacing: 10.0,
                       crossAxisSpacing: 10.0,
@@ -110,8 +91,18 @@ class _SearchScreenState extends State<SearchScreen> {
                     ),
                     itemBuilder: (BuildContext context, int index) {
                       return HotelCategoryCard(
+                        name: ConfigList.hotelTypes[index][ConfigKey.type],
+                        icon: ConfigList.hotelTypes[index][ConfigKey.icon],
                         onTap: () {
                           print("ontap");
+                          Navigator.pushNamed(
+                            context,
+                            '/hotelList',
+                            arguments: {
+                              ConfigKey.type: ConfigList.hotelTypes[index]
+                                  [ConfigKey.type],
+                            },
+                          );
                         },
                       );
                     }),

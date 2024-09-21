@@ -22,12 +22,12 @@ class Review {
     Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
     return Review(
       rid: doc.id,
-      guestId: data['guestId'],
-      hotelId: data['hotelId'],
-      bookingId: data['bookingId'],
+      guestId: data['guestId'] ?? "Error",
+      hotelId: data['hotelId'] ?? "Error",
+      bookingId: data['bookingId'] ?? "Error",
       star: data['star'],
       // chuyen Timestamp thanh DateTime
-      createAt: (data['createAt'] as Timestamp).toDate(),
+      createAt:data['createAt'] != null ? (data['createAt'] as Timestamp).toDate() : DateTime(2000),
       updateAt: data['updateAt'] != null
           ? (data['updateAt'] as Timestamp).toDate()
           : null,

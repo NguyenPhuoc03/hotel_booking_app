@@ -2,6 +2,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hotel_booking_app/models/sightseeing_spot_model.dart';
+import 'package:hotel_booking_app/utils/config_key.dart';
 import 'package:hotel_booking_app/viewmodels/hotel_viewmodel.dart';
 import 'package:hotel_booking_app/viewmodels/user_viewmodel.dart';
 import 'package:hotel_booking_app/views/widgets/card/hotel_deal_card.dart';
@@ -72,9 +73,12 @@ final List<Widget> imageSliders = imgList
 
 class _HomeScreenState extends State<HomeScreen> {
   late ThemeData myTheme;
+  late bool isEmptyNearYouHotel;
+
   @override
   Widget build(BuildContext context) {
     myTheme = Theme.of(context);
+    isEmptyNearYouHotel = false;
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -154,7 +158,15 @@ class _HomeScreenState extends State<HomeScreen> {
                           style: myTheme.textTheme.labelLarge,
                         ),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(
+                              context,
+                              '/hotelList',
+                              arguments: {
+                                ConfigKey.type: ConfigKey.popularHotels
+                              },
+                            );
+                          },
                           child: Text(
                             "See all",
                             style: myTheme.textTheme.labelSmall,
@@ -168,7 +180,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       builder: (BuildContext context, HotelViewmodel value,
                           Widget? child) {
                         if (value.isPopularLoading) {
-                          return Center(child: const  CircularProgressIndicator());
+                          return const Center(
+                              child: CircularProgressIndicator());
                         } else if (value.popularHotels.isEmpty) {
                           return const Text('Error');
                         }
@@ -208,7 +221,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         TextButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, '/hotelList');
+                            Navigator.pushNamed(
+                              context,
+                              '/hotelList',
+                              arguments: {ConfigKey.type: ConfigKey.dealHotels},
+                            );
                           },
                           child: Text(
                             "See all",
@@ -256,12 +273,32 @@ class _HomeScreenState extends State<HomeScreen> {
                     "Near You",
                     style: myTheme.textTheme.labelLarge,
                   ),
-                  IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.east,
-                        color: Colors.blue.shade900,
-                      )),
+                  Consumer<HotelViewmodel>(builder: (BuildContext context,
+                      HotelViewmodel value, Widget? child) {
+                    isEmptyNearYouHotel = value.nearYouHotels.isEmpty;
+                    return IconButton(
+                      onPressed: isEmptyNearYouHotel
+                          ? null
+                          : () {
+                              Navigator.pushNamed(
+                                context,
+                                '/hotelList',
+                                arguments: {
+                                  ConfigKey.type: ConfigKey.nearYouHotels
+                                },
+                              );
+                            },
+                      icon: isEmptyNearYouHotel
+                          ? Icon(
+                              Icons.east,
+                              color: Colors.grey,
+                            )
+                          : Icon(
+                              Icons.east,
+                              color: Colors.blue.shade900,
+                            ),
+                    );
+                  }),
                 ],
               ),
             ),
@@ -271,8 +308,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 if (value.isNearYouLoading) {
                   return const CircularProgressIndicator();
                 } else if (value.nearYouHotels.isEmpty) {
-                  return const Text('Hotels is empty');
+                  isEmptyNearYouHotel = true;
+                  return const Text('No hotels available');
                 }
+                isEmptyNearYouHotel = false;
                 return ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),

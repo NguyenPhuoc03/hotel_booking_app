@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Room {
-  final String? rid;
-  final String type;
+  final String? rid; // la duy nhat dung de quan li tren firebase
+  final String
+      type; // la duy nhat, quan li bang ten, moi id la 1 tye, moi type la 1 id
   final String description;
   final List<String> image;
   final int maxOccupancy;
@@ -10,6 +11,7 @@ class Room {
   final Map<String, bool> roomName; //true co the cho thue (trong)
   final List<String> utilities;
   final String hotelId;
+  
 
   Room({
     this.rid,
@@ -27,14 +29,17 @@ class Room {
     Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
     return Room(
       rid: doc.id,
-      type: data['type'],
-      description: data['description'],
-      image: List.from(data['image']),
-      maxOccupancy: data['maxOccupancy'],
-      roomPrice: data['roomPrice'],
-      roomName: Map<String, bool>.from(data['roomName']),
-      utilities: List.from(data['utilities']),
-      hotelId: data['hotelId'],
+      type: data['type'] ?? 'Unknown Type',
+      description: data['description'] ?? 'No description available',
+      image: data['image'] != null ? List<String>.from(data['image']) : [],
+      maxOccupancy: data['maxOccupancy'] ?? 0,
+      roomPrice: data['roomPrice'] ?? 0,
+      roomName: data['roomName'] != null
+          ? Map<String, bool>.from(data['roomName'])
+          : {},
+      utilities:
+          data['utilities'] != null ? List<String>.from(data['utilities']) : [],
+      hotelId: data['hotelId'] ?? "Error",
     );
   }
 

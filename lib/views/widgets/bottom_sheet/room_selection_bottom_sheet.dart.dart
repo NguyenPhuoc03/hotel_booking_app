@@ -1,7 +1,5 @@
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:hotel_booking_app/viewmodels/booking_view_model.dart';
-import 'package:provider/provider.dart';
 
 class RoomSelectionBottomSheet extends StatefulWidget {
   RoomSelectionBottomSheet({super.key});

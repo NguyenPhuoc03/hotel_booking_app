@@ -55,6 +55,7 @@ dependencies:
   location: ^6.0.2
   geocoding: ^3.0.0 #chuyen doi vi tri tu (x,y) sang tinh thanh
   diacritic: ^0.1.5
+  text_marquee: ^0.0.2 #neu text dai thi se chay chu theo chieu ngang
 
 dev_dependencies:
   flutter_test:

@@ -5,7 +5,8 @@ import 'package:hotel_booking_app/utils/config_key.dart';
 import 'package:hotel_booking_app/views/widgets/card/replace_error_image_card.dart';
 
 class HotelInformationColumnCard extends StatefulWidget {
-  HotelInformationColumnCard({super.key, required this.onTap, required this.hotel});
+  HotelInformationColumnCard(
+      {super.key, required this.onTap, required this.hotel});
   final VoidCallback onTap;
   final Hotel hotel;
 
@@ -91,9 +92,9 @@ class _HotelInformationColumnCardState
                     ],
                   ),
                   Text(
-                    '\$750',
-                    style: myTheme.textTheme.bodyLarge
-                        ?.copyWith(color: Colors.red),
+                    '${widget.hotel.lowestRoomPrice}VND',
+                    style: myTheme.textTheme.titleMedium
+                        ?.copyWith(color: Colors.red, fontSize: 22),
                   ),
                 ],
               ),

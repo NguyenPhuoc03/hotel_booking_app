@@ -11,6 +11,8 @@ class Hotel {
   List<String> reviews;
   final double avgRating;
   final int totalReview;
+  final int totalBook;
+  int? lowestRoomPrice;
 
   Hotel({
     this.hid,
@@ -23,6 +25,8 @@ class Hotel {
     required this.reviews,
     this.avgRating = 0.0,
     this.totalReview = 0,
+    this.totalBook = 0,
+    this.lowestRoomPrice = 0,
   });
 
   factory Hotel.fromFirestore(DocumentSnapshot doc) {
@@ -41,6 +45,8 @@ class Hotel {
           data['reviews'] != null ? List<String>.from(data['reviews']) : [],
       avgRating: (data['avgRating'] as num?)?.toDouble() ?? 0.0,
       totalReview: data['totalReview'] ?? 0,
+      totalBook: data['totalBook'] ?? 0,
+      lowestRoomPrice: data['lowestRoomPrice'] ?? 0,
     );
   }
 
@@ -54,7 +60,9 @@ class Hotel {
       'hostId': hostId,
       'reviews': reviews,
       'avgRating': avgRating,
-      'totalReview': totalReview
+      'totalReview': totalReview,
+      'totalBook': totalBook,
+      'lowestRoomPrice': lowestRoomPrice,
     };
   }
 }
