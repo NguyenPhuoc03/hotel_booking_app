@@ -20,4 +20,14 @@ class LocalStorage {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getBool(key) ?? false;
   }
+
+  static Future<void> setStringList(String key, List<String> value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setStringList(key, value);
+  }
+
+  static Future<List<String>> getStringList(String key) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getStringList(key) ?? [];
+  }
 }

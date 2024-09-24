@@ -1,12 +1,14 @@
 class ConfigKey {
   //hotel model
   static String hotel = "hotel";
+  static String name = "name";
   static String province = "province";
   static String district = "district";
   static String avgRating = "avgRating";
   static String totalReview = "totalReview";
   static String totalBook = "totalBook";
   static String discount = "discount";
+
 
   //avatar
   static const String avatarUrl =

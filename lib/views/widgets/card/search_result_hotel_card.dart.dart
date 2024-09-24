@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:hotel_booking_app/models/hotel.dart';
+import 'package:hotel_booking_app/utils/config_key.dart';
 
 class SearchResultHotelCard extends StatelessWidget {
-  SearchResultHotelCard({super.key});
+  final Hotel hotel;
+  SearchResultHotelCard({super.key, required this.hotel});
   late ThemeData myTheme;
 
   @override
@@ -23,7 +26,7 @@ class SearchResultHotelCard extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 20,
           ),
           Column(
@@ -31,17 +34,21 @@ class SearchResultHotelCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Text(
-                "FLC Resort",
+                hotel.name,
                 style: myTheme.textTheme.bodyLarge
                     ?.copyWith(fontWeight: FontWeight.w400),
               ),
-              SizedBox(height: 5,),
+              const SizedBox(
+                height: 5,
+              ),
               Text(
-                "Quy Nhon",
+                hotel.address[ConfigKey.province] ?? "Error",
                 style: myTheme.textTheme.displayMedium
                     ?.copyWith(fontStyle: FontStyle.italic),
               ),
-              SizedBox(height: 8,),
+              const SizedBox(
+                height: 8,
+              ),
               Row(
                 children: [
                   Text(
@@ -53,12 +60,16 @@ class SearchResultHotelCard extends StatelessWidget {
                     size: 18,
                     color: Colors.yellow,
                   ),
-                  SizedBox(width: 16,),
+                  SizedBox(
+                    width: 16,
+                  ),
                   Icon(
                     Icons.panorama_wide_angle_select,
                     size: 4,
                   ),
-                  SizedBox(width: 16,),
+                  SizedBox(
+                    width: 16,
+                  ),
                   Text(
                     "300 reviews",
                     style: myTheme.textTheme.bodySmall,
