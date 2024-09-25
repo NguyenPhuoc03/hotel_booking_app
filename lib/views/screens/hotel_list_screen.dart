@@ -76,15 +76,7 @@ class _HotelListScreenState extends State<HotelListScreen> {
           await viewmodel.getNearYouHotels();
         }
         return viewmodel.nearYouHotels;
-
-      case ConfigKey.mostBookedHotels:
-        await viewmodel.getMostBookedHotels();
-        return viewmodel.mostBookedHotels;
-
-      case ConfigKey.highestRatedHotels:
-        await viewmodel.getHighestRatedHotels();
-        return viewmodel.highestRatedHotels;
-
+        
       default:
         return [];
     }

@@ -38,7 +38,7 @@ class _HotelInformationColumnCardState
                 placeholder: (context, url) => CircularProgressIndicator(),
                 errorWidget: (context, url, error) => ReplaceErrorImageCard(
                       height: 200,
-                      widght: double.infinity,
+                      width: double.infinity,
                     ),
                 imageBuilder: (context, imageProvider) {
                   return Container(

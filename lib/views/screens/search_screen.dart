@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:hotel_booking_app/utils/config_key.dart';
-import 'package:hotel_booking_app/utils/config_list.dart';
-import 'package:hotel_booking_app/views/widgets/card/hotel_category_card.dart';
+import 'package:hotel_booking_app/utils/local_storage.dart';
+import 'package:hotel_booking_app/utils/shared_preferences_keys.dart';
+import 'package:hotel_booking_app/viewmodels/hotel_viewmodel.dart';
+import 'package:hotel_booking_app/views/widgets/card/recent_search_card.dart';
+import 'package:hotel_booking_app/views/widgets/card/search_result_hotel_card.dart';
+import 'package:provider/provider.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -11,106 +14,176 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
+  final TextEditingController _searchController = TextEditingController();
+  late ThemeData myTheme;
+  late FocusNode _focusNode;
+  late HotelViewmodel _viewmodel;
+  bool _isDisableSurfixIcon = false;
+  List<String> _searchHistory = [];
+  late bool _showHistory;
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode = FocusNode();
+    _showHistory = true;
+    _getSearchHistory();
+  }
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    _searchController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    myTheme = Theme.of(context);
+    _viewmodel = Provider.of<HotelViewmodel>(context);
+    return Scaffold(
+        appBar: AppBar(
+          titleSpacing: 0,
+          title: Row(
             children: [
-              Container(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: InkWell(
-                          onTap: () =>
-                              Navigator.pushNamed(context, '/searchNextStep'),
-                          child: Container(
-                            padding: EdgeInsets.all(12),
-                            decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(45)),
-                              border:
-                                  Border.all(width: 1.0, color: Colors.blue),
-                              color: Colors.grey.shade300,
-                            ),
-                            child: Row(
-                              children: [
-                                Icon(Icons.search),
-                                SizedBox(
-                                  width: 12,
-                                ),
-                                Text("Search..."),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      IconButton(
-                          onPressed: () {
-                            // setState(() {
-                            //   showModalBottomSheet(
-                            //       shape: const RoundedRectangleBorder(
-                            //         borderRadius: BorderRadius.vertical(
-                            //           top: Radius.circular(25),
-                            //         ),
-                            //       ),
-                            //       clipBehavior: Clip.antiAliasWithSaveLayer,
-                            //       context: context,
-                            //       builder: (context) =>
-                            //           _custombottomSheetFilter(context));
-                            // }
-                            // );
-                          },
-                          icon: const Icon(
-                            Icons.filter_list,
-                            size: 30,
-                          )),
-                    ],
-                  ),
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 8),
-                child: Text("Recommended for you"),
-              ),
               Expanded(
-                child: GridView.builder(
-                    itemCount: ConfigList.hotelTypes.length,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 10.0,
-                      crossAxisSpacing: 10.0,
-                      mainAxisExtent: 50.0,
-                    ),
-                    itemBuilder: (BuildContext context, int index) {
-                      return HotelCategoryCard(
-                        name: ConfigList.hotelTypes[index][ConfigKey.type],
-                        icon: ConfigList.hotelTypes[index][ConfigKey.icon],
-                        onTap: () {
-                          print("ontap");
-                          Navigator.pushNamed(
-                            context,
-                            '/hotelList',
-                            arguments: {
-                              ConfigKey.type: ConfigList.hotelTypes[index]
-                                  [ConfigKey.type],
-                            },
-                          );
-                        },
-                      );
-                    }),
+                child: TextFormField(
+                  focusNode: _focusNode,
+                  controller: _searchController,
+                  style: myTheme.textTheme.displayMedium,
+                  decoration: InputDecoration(
+                    hintText: 'Search...',
+                    hintStyle: myTheme.textTheme.displayMedium,
+                    border: InputBorder.none,
+                    prefixIcon: const Icon(Icons.search, size: 28),
+                    suffix: _isDisableSurfixIcon
+                        ? null
+                        : IconButton(
+                            onPressed: _searchController.clear,
+                            icon: const Icon(Icons.close)),
+                  ),
+                  keyboardType: TextInputType.emailAddress,
+                  onTap: () {
+                    _focusNode.requestFocus();
+                    setState(() {
+                      _showHistory = true;
+                      _isDisableSurfixIcon = false;
+                    });
+                  },
+                  onFieldSubmitted: (value) {
+                    setState(() {
+                      _showHistory = false;
+                      _isDisableSurfixIcon = true;
+                    });
+                    if (value.isNotEmpty) {
+                      _viewmodel.getHotelsBySearch(value);
+                      _saveHistory(value);
+                    }
+                  },
+                ),
               ),
             ],
           ),
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(1.0),
+            child: Container(
+              color: Colors.grey,
+              height: 1.0,
+            ),
+          ),
         ),
+        body: _showHistory ? _buildRecentSearch() : _buildHotelList());
+  }
+
+  //recent search
+  Widget _buildRecentSearch() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text("Recent searches"),
+          _searchHistory.isEmpty
+              ? const Center(child: Text('No search history'))
+              : Column(
+                  children: [
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: _searchHistory.length >= 5
+                          ? 5
+                          : _searchHistory.length,
+                      itemBuilder: (context, index) {
+                        return RecentSearchCard(
+                          label: _searchHistory[index],
+                          onTap: () {
+                            setState(() {
+                              _searchController.text = _searchHistory[index];
+                            });
+                          },
+                        );
+                      },
+                    ),
+                    TextButton(
+                      child: Text(
+                        "Clear search history",
+                        style: myTheme.textTheme.bodyMedium
+                            ?.copyWith(fontWeight: FontWeight.normal),
+                      ),
+                      onPressed: () {
+                        _clearHistory();
+                      },
+                    ),
+                  ],
+                ),
+        ],
       ),
     );
+  }
+
+  //after submit
+  Widget _buildHotelList() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+              child: ListView.builder(
+            itemCount: _viewmodel.searchHotels.length,
+            itemBuilder: (context, index) {
+              final hotel = _viewmodel.searchHotels[index];
+              return SearchResultHotelCard(hotel: hotel);
+            },
+          ))
+        ],
+      ),
+    );
+  }
+
+  void _getSearchHistory() async {
+    List<String> history =
+        await LocalStorage.getStringList(SharedPreferencesKeys.history);
+
+    setState(() {
+      _searchHistory = history;
+    });
+  }
+
+  void _saveHistory(String query) async {
+    if (!_searchHistory.contains(query)) {
+      _searchHistory.insert(0, query);
+    }
+
+    await LocalStorage.setStringList(
+        SharedPreferencesKeys.history, _searchHistory);
+  }
+
+  void _clearHistory() async {
+    setState(() {
+      _searchHistory.clear();
+    });
+    await LocalStorage.setStringList(
+        SharedPreferencesKeys.history, _searchHistory);
   }
 }

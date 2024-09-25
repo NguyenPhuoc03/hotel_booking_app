@@ -24,7 +24,7 @@ class HotelDealCard extends StatelessWidget {
             placeholder: (context, url) => CircularProgressIndicator(),
             errorWidget: (context, url, error) => ReplaceErrorImageCard(
                   height: 120,
-                  widght: 200,
+                  width: 200,
                 ),
             imageBuilder: (context, imageProvider) {
               return Container(

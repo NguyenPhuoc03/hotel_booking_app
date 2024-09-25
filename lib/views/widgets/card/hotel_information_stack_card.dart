@@ -18,10 +18,10 @@ class HotelInformationStackCard extends StatelessWidget {
       onTap: () => onTap(),
       child: CachedNetworkImage(
         imageUrl: hotel.image[0],
-        placeholder: (context, url) => CircularProgressIndicator(),
+        placeholder: (context, url) => const CircularProgressIndicator(),
         errorWidget: (context, url, error) => ReplaceErrorImageCard(
           height: 185,
-          widght: 270,
+          width: 270,
         ),
         imageBuilder: (context, imageProvider) {
           return Container(

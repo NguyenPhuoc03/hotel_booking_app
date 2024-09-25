@@ -8,30 +8,21 @@ class HotelViewmodel extends ChangeNotifier {
   bool _isPopularLoading = false;
   bool _isDealLoading = false;
   bool _isNearYouLoading = false;
-  bool _isMostBookedLoading = false;
-  bool _isHighestRatedLoading = false;
   bool _isSearchHotelsLoading = false;
 
   List<Hotel> _popularHotels = [];
   List<Hotel> _dealHotels = [];
   List<Hotel> _nearYouHotels = [];
-  List<Hotel> _mostBookedHotels = [];
-  List<Hotel> _highestRatedHotels = [];
   List<Hotel> _searchHotels = [];
 
   bool get isPopularLoading => _isPopularLoading;
   bool get isDealLoading => _isDealLoading;
   bool get isNearYouLoading => _isNearYouLoading;
-  bool get isMostBookedLoading => _isMostBookedLoading;
-  bool get isHighestRatedLoading => _isHighestRatedLoading;
   bool get isSearchHotelsLoading => _isSearchHotelsLoading;
 
   List<Hotel> get popularHotels => _popularHotels; // duoc danh gia nhieu nhat
   List<Hotel> get dealHotels => _dealHotels; // giam gia cao nhat
   List<Hotel> get nearYouHotels => _nearYouHotels; // gan ban
-  List<Hotel> get mostBookedHotels => _mostBookedHotels; //duoc book nhieu nhat
-  List<Hotel> get highestRatedHotels =>
-      _highestRatedHotels; //so sao trung binh cao nhat
   List<Hotel> get searchHotels => _searchHotels;
 
   //khoi tao khi goi multiprovider va tu dong goi cac fuction get hotel
@@ -72,26 +63,6 @@ class HotelViewmodel extends ChangeNotifier {
     _nearYouHotels = await _hotelServices.getNearYouHotels();
 
     _isNearYouLoading = false;
-    notifyListeners();
-  }
-
-  Future<void> getMostBookedHotels() async {
-    _isMostBookedLoading = true;
-    notifyListeners();
-
-    _mostBookedHotels = await _hotelServices.getMostBookedHotels();
-
-    _isMostBookedLoading = false;
-    notifyListeners();
-  }
-
-  Future<void> getHighestRatedHotels() async {
-    _isHighestRatedLoading = true;
-    notifyListeners();
-
-    _highestRatedHotels = await _hotelServices.getHighestRatedHotels();
-
-    _isHighestRatedLoading = false;
     notifyListeners();
   }
 

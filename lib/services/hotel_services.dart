@@ -78,35 +78,7 @@ class HotelServices {
       return [];
     }
   }
-
-  Future<List<Hotel>> getMostBookedHotels() async {
-    try {
-      QuerySnapshot querySnapshot = await _collectionReference
-          .orderBy(ConfigKey.totalBook, descending: true)
-          .get();
-      return querySnapshot.docs.map((doc) => Hotel.fromFirestore(doc)).toList();
-    } catch (e, stacktrace) {
-      print("(hotel_services) Error fetching data: $e");
-      //hien thi chi tiet loi
-      print("Stacktrace: $stacktrace");
-      return [];
-    }
-  }
-
-  Future<List<Hotel>> getHighestRatedHotels() async {
-    try {
-      QuerySnapshot querySnapshot = await _collectionReference
-          .orderBy(ConfigKey.avgRating, descending: true)
-          .get();
-      return querySnapshot.docs.map((doc) => Hotel.fromFirestore(doc)).toList();
-    } catch (e, stacktrace) {
-      print("(hotel_services) Error fetching data: $e");
-      //hien thi chi tiet loi
-      print("Stacktrace: $stacktrace");
-      return [];
-    }
-  }
-
+  
   //search
   Future<List<Hotel>> getHotelsBySearch(String keySearch) async {
     try {

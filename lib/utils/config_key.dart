@@ -23,6 +23,4 @@ class ConfigKey {
   static const String popularHotels = "Popular Hotels";
   static const String dealHotels = "Hot Hotel Deals";
   static const String nearYouHotels = "Near You Hotels";
-  static const String mostBookedHotels = "Most Booked Hotels";
-  static const String highestRatedHotels = "Highest Rated Hotels";
 }

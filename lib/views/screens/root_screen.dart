@@ -14,8 +14,8 @@ class RootScreen extends StatefulWidget {
 class _RootScreenState extends State<RootScreen> {
   int _currentIndex = 0;
   final List<Widget> _screens = [
-    HomeScreen(),
-    SearchScreen(),
+    const HomeScreen(),
+    const SearchScreen(),
     BookingHistoryScreen(),
     ProfileScreen(),
   ];

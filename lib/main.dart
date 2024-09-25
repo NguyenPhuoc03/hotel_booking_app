@@ -16,7 +16,6 @@ import 'package:hotel_booking_app/views/screens/hotel_list_screen.dart';
 import 'package:hotel_booking_app/views/screens/notification_screen.dart';
 import 'package:hotel_booking_app/views/screens/onboarding_screen.dart';
 import 'package:hotel_booking_app/views/screens/root_screen.dart';
-import 'package:hotel_booking_app/views/screens/search_next_step_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -58,7 +57,6 @@ class MyApp extends StatelessWidget {
           'hotelDetail': (context) => HotelDetailScreen(),
           'bookingConfirmation': (context) => BookingConfirmationScreen(),
           '/hotelList': (context) => HotelListScreen(),
-          '/searchNextStep': (context) => SearchNextStepScreen(),
           '/editProfile': (context) => EditProfileScreen(),
           '/changePassword': (context) => ChangePasswordScreen(),
           'forgotPassword': (context) => ForgotPasswordScreen(),
