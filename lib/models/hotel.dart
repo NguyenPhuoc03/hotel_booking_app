@@ -12,7 +12,7 @@ class Hotel {
   final double avgRating;
   final int totalReview;
   final int totalBook;
-  int? lowestRoomPrice;
+  int? lowestRoomPrice; //byNight
 
   Hotel({
     this.hid,

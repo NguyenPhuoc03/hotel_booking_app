@@ -1,10 +1,10 @@
 import 'package:diacritic/diacritic.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hotel_booking_app/models/hotel.dart';
-import 'package:hotel_booking_app/services/hotel_services.dart';
+import 'package:hotel_booking_app/services/hotel_service.dart';
 
 class HotelViewmodel extends ChangeNotifier {
-  final HotelServices _hotelServices = HotelServices();
+  final HotelService _hotelService = HotelService();
   bool _isPopularLoading = false;
   bool _isDealLoading = false;
   bool _isNearYouLoading = false;
@@ -40,7 +40,7 @@ class HotelViewmodel extends ChangeNotifier {
     _isPopularLoading = true;
     notifyListeners();
 
-    _popularHotels = await _hotelServices.getPopularHotels();
+    _popularHotels = await _hotelService.getPopularHotels();
 
     _isPopularLoading = false;
     notifyListeners();
@@ -50,7 +50,7 @@ class HotelViewmodel extends ChangeNotifier {
     _isDealLoading = true;
     notifyListeners();
 
-    _dealHotels = await _hotelServices.getDealHotels();
+    _dealHotels = await _hotelService.getDealHotels();
 
     _isDealLoading = false;
     notifyListeners();
@@ -60,7 +60,7 @@ class HotelViewmodel extends ChangeNotifier {
     _isNearYouLoading = true;
     notifyListeners();
 
-    _nearYouHotels = await _hotelServices.getNearYouHotels();
+    _nearYouHotels = await _hotelService.getNearYouHotels();
 
     _isNearYouLoading = false;
     notifyListeners();
@@ -71,10 +71,16 @@ class HotelViewmodel extends ChangeNotifier {
     notifyListeners();
 
     //removeDiacritics(value) xoa bo tieng viet, vi du Đinh = Dinh
-    _searchHotels = await _hotelServices
+    _searchHotels = await _hotelService
         .getHotelsBySearch(removeDiacritics(value).toLowerCase());
 
     _isSearchHotelsLoading = false;
     notifyListeners();
+  }
+
+  Future<Hotel?> getHotelById(String hid) async {
+    Hotel? hotel = await _hotelService.getHotelById(hid);
+    notifyListeners();
+    return hotel;
   }
 }

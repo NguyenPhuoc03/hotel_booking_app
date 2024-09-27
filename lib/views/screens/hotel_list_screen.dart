@@ -17,9 +17,17 @@ class _HotelListScreenState extends State<HotelListScreen> {
   late final Map<String, dynamic> arguments;
 
   @override
-  Widget build(BuildContext context) {
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Nhận arguments từ ModalRoute
     arguments =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // arguments =
+    //     ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     type = arguments[ConfigKey.type];
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
@@ -44,9 +52,6 @@ class _HotelListScreenState extends State<HotelListScreen> {
                 itemBuilder: (context, index) {
                   final hotel = hotels[index];
                   return HotelInformationColumnCard(
-                    onTap: () {
-                      Navigator.pushNamed(context, 'hotelDetail');
-                    },
                     hotel: hotel,
                   );
                 },
@@ -76,7 +81,7 @@ class _HotelListScreenState extends State<HotelListScreen> {
           await viewmodel.getNearYouHotels();
         }
         return viewmodel.nearYouHotels;
-        
+
       default:
         return [];
     }

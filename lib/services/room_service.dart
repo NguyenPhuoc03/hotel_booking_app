@@ -4,26 +4,69 @@ import 'package:hotel_booking_app/utils/config_key.dart';
 
 class RoomService {
   final CollectionReference _collectionReference =
-      FirebaseFirestore.instance.collection(ConfigKey.hotel);
+      FirebaseFirestore.instance.collection(ConfigKey.room);
 
-  Future<int> getLowestRoomPriceForHotel(String hid) async {
+  Future<List<Room>> getRoomsByHotelId(String hid) async {
     try {
       QuerySnapshot querySnapshot = await _collectionReference
-          .where('hotelId', isEqualTo: hid)
-          .orderBy('roomPrice')
-          .limit(1)
+          .where(ConfigKey.hotelId, isEqualTo: hid)
           .get();
+      return querySnapshot.docs.map((doc) => Room.fromFirestore(doc)).toList();
+    } catch (e) {
+      print("(room_services1) Error data: $e");
+      return [];
+    }
+  }
 
-      if (querySnapshot.docs.isNotEmpty) {
-        return Room.fromFirestore(querySnapshot.docs.first).roomPrice;
-      } else {
-        return -1;
-      }
+  Future<Room?> getRoomById(String rid) async {
+    try {
+      DocumentSnapshot documentSnapshot =
+          await _collectionReference.doc(rid).get();
+      return Room.fromFirestore(documentSnapshot);
     } catch (e, stacktrace) {
-      print("(room_services) Error data: $e");
-      //hien thi chi tiet loi
+      print("(room_services) Error fetching data: $e");
       print("Stacktrace: $stacktrace");
-      return 0;
+      return null;
+    }
+  }
+
+  Future<List<String>> getAvailableRooms(String rid) async {
+    try {
+      DocumentSnapshot documentSnapshot =
+          await _collectionReference.doc(rid).get();
+
+      if (documentSnapshot.exists) {
+        Room room = Room.fromFirestore(documentSnapshot);
+
+        List<String> availableRoomNames = [];
+        room.roomName.forEach((key, value) {
+          if (value == true) {
+            availableRoomNames.add(key);
+          }
+        });
+
+        return availableRoomNames;
+      } else {
+        return [];
+      }
+    } catch (e) {
+      print("(room_services2) Error data: $e");
+      return [];
+    }
+  }
+
+  Future<void> updateRoomAvailability(
+      String roomId, List<String> roomNameKeys) async {
+    try {
+      Map<String, bool> updates = {};
+      for (String key in roomNameKeys) {
+        updates['roomName.$key'] = false;
+      }
+
+      await _collectionReference.doc(roomId).update(updates);
+    } catch (e) {
+      print("Error updating room availability: $e");
+      throw e;
     }
   }
 }

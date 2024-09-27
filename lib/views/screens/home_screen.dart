@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hotel_booking_app/models/sightseeing_spot_model.dart';
 import 'package:hotel_booking_app/utils/config_key.dart';
 import 'package:hotel_booking_app/viewmodels/hotel_viewmodel.dart';
+import 'package:hotel_booking_app/viewmodels/room_viewmodel.dart';
 import 'package:hotel_booking_app/viewmodels/user_viewmodel.dart';
 import 'package:hotel_booking_app/views/widgets/card/hotel_deal_card.dart';
 import 'package:hotel_booking_app/views/widgets/card/hotel_information_column_card.dart';
@@ -191,8 +192,18 @@ class _HomeScreenState extends State<HomeScreen> {
                           itemBuilder: (context, index) {
                             final popularHotel = value.popularHotels[index];
                             return HotelInformationStackCard(
-                              onTap: () {
-                                Navigator.pushNamed(context, 'hotelDetail');
+                              onTap: () async {
+                                await context
+                                    .read<RoomViewmodel>()
+                                    .getRooms(popularHotel.hid!);
+                                Navigator.pushNamed(
+                                  context,
+                                  'hotelDetail',
+                                  arguments: {
+                                    ConfigKey.room: popularHotel.hid,
+                                    ConfigKey.name: popularHotel.name,
+                                  },
+                                );
                               },
                               hotel: popularHotel,
                             );
@@ -250,8 +261,18 @@ class _HomeScreenState extends State<HomeScreen> {
                           itemBuilder: (context, index) {
                             final dealHotel = value.dealHotels[index];
                             return HotelDealCard(
-                              onTap: () {
-                                Navigator.pushNamed(context, 'hotelDetail');
+                              onTap: () async {
+                                await context
+                                    .read<RoomViewmodel>()
+                                    .getRooms(dealHotel.hid!);
+                                Navigator.pushNamed(
+                                  context,
+                                  'hotelDetail',
+                                  arguments: {
+                                    ConfigKey.room: dealHotel.hid,
+                                    ConfigKey.name: dealHotel.name,
+                                  },
+                                );
                               },
                               hotel: dealHotel,
                             );
@@ -289,7 +310,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               );
                             },
                       icon: isEmptyNearYouHotel
-                          ? Icon(
+                          ? const Icon(
                               Icons.east,
                               color: Colors.grey,
                             )
@@ -319,9 +340,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemBuilder: (context, index) {
                     final nearYouHotel = value.nearYouHotels[index];
                     return HotelInformationColumnCard(
-                      onTap: () {
-                        Navigator.pushNamed(context, 'hotelDetail');
-                      },
                       hotel: nearYouHotel,
                     );
                   },

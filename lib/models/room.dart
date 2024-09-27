@@ -7,11 +7,11 @@ class Room {
   final String description;
   final List<String> image;
   final int maxOccupancy;
-  final int roomPrice;
+  final int
+      roomPrice; //gia du 20 tieng thi tinh theo gia, phan du tinh theo 6%/tieng
   final Map<String, bool> roomName; //true co the cho thue (trong)
   final List<String> utilities;
   final String hotelId;
-  
 
   Room({
     this.rid,

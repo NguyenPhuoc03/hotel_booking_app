@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:hotel_booking_app/viewmodels/booking_viewmodel.dart';
+import 'package:hotel_booking_app/viewmodels/user_viewmodel.dart';
 import 'package:hotel_booking_app/views/widgets/tab_bar_view/active_booking_tab_bar_view.dart';
 import 'package:hotel_booking_app/views/widgets/tab_bar_view/canceled_booking_tab_bar_view.dart';
 import 'package:hotel_booking_app/views/widgets/tab_bar_view/completed_booking_tab_bar_view.dart';
 import 'package:hotel_booking_app/views/widgets/tab_bar_view/empty_booking_tab_bar_view.dart';
+import 'package:provider/provider.dart';
 
 class BookingHistoryScreen extends StatefulWidget {
   BookingHistoryScreen({super.key});
@@ -13,14 +16,38 @@ class BookingHistoryScreen extends StatefulWidget {
 
 class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
   late ThemeData myTheme;
-  bool isEmptyActiveBooking = false;
+  late BookingViewmodel bookingViewmodel;
+  late UserViewmodel userViewmodel;
+
+  bool isEmptyActiveBooking = true;
   bool isEmptyComletedBooking = true;
-  bool isEmptyCanceledBooking = false;
+  bool isEmptyCanceledBooking = true;
+
+  @override
+  void initState() {
+    super.initState();
+    bookingViewmodel = Provider.of<BookingViewmodel>(context, listen: false);
+    userViewmodel = Provider.of<UserViewmodel>(context, listen: false);
+    _loadBookings();
+  }
+
+  Future<void> _loadBookings() async {
+    String? userId = userViewmodel.user!.uid;
+
+    await bookingViewmodel.getBookingByUid(userId!);
+
+    setState(() {
+      isEmptyActiveBooking = bookingViewmodel.activeBookings.isEmpty;
+      isEmptyComletedBooking = bookingViewmodel.completedBookings.isEmpty;
+    //  isEmptyCanceledBooking = bookingViewmodel.cancelBookings.isEmpty;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     myTheme = Theme.of(context);
     return DefaultTabController(
-      length: 3,
+      length: 2,
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -46,7 +73,7 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
                 tabs: const [
                   Text('Active'),
                   Text('Completed'),
-                  Text('Canceled'),
+                  //  Text('Canceled'),
                 ],
               ),
             ),
@@ -56,13 +83,22 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
           children: [
             isEmptyActiveBooking
                 ? EmptyBookingTabBarView()
-                : ActiveBookingTabBarView(),
+                : ActiveBookingTabBarView(
+                    activeBookings: bookingViewmodel.activeBookings,
+                    onPressed: (booking) {
+                      bookingViewmodel.checkForCheckOut(booking);
+                    },
+                  ),
             isEmptyComletedBooking
                 ? EmptyBookingTabBarView()
-                : CompletedBookingTabBarView(),
-            isEmptyCanceledBooking
-                ? EmptyBookingTabBarView()
-                : CanceledBookingTabBarView(),
+                : CompletedBookingTabBarView(
+                    completedBookings: bookingViewmodel.completedBookings,
+                  ),
+            // isEmptyCanceledBooking
+            //     ? EmptyBookingTabBarView()
+            //     : CanceledBookingTabBarView(
+            //         cancelBookings: bookingViewmodel.cancelBookings,
+            //       ),
           ],
         ),
       ),

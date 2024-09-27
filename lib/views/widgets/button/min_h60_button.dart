@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
 class MinH60Button extends StatelessWidget {
-  MinH60Button({super.key, required this.onPressed, required this.labelButton});
-  final VoidCallback onPressed;
+  MinH60Button({
+    super.key,
+    this.onPressed,
+    required this.labelButton,
+  });
+  final VoidCallback? onPressed;
   final String labelButton;
   late ThemeData myTheme;
 
@@ -13,13 +17,18 @@ class MinH60Button extends StatelessWidget {
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.blue.shade600,
-        shape: const StadiumBorder(),
-        elevation: 20,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        elevation: 2.0,
         minimumSize: const Size.fromHeight(60),
       ),
       child: Text(
         labelButton,
-        style: myTheme.textTheme.bodyMedium,
+        style: myTheme.textTheme.titleLarge?.copyWith(
+          letterSpacing: 1.25,
+          fontWeight: FontWeight.w700,
+        ),
       ),
     );
   }

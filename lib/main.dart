@@ -3,8 +3,9 @@ import 'package:hotel_booking_app/utils/local_storage.dart';
 import 'package:hotel_booking_app/utils/shared_preferences_keys.dart';
 import 'package:hotel_booking_app/utils/theme_utils.dart';
 import 'package:hotel_booking_app/viewmodels/auth_viewmodel.dart';
-import 'package:hotel_booking_app/viewmodels/booking_view_model.dart';
+import 'package:hotel_booking_app/viewmodels/booking_viewmodel.dart';
 import 'package:hotel_booking_app/viewmodels/hotel_viewmodel.dart';
+import 'package:hotel_booking_app/viewmodels/room_viewmodel.dart';
 import 'package:hotel_booking_app/viewmodels/user_viewmodel.dart';
 import 'package:hotel_booking_app/views/screens/booking_confirmation_screen.dart';
 import 'package:hotel_booking_app/views/screens/change_password_screen.dart';
@@ -39,9 +40,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => BookingViewModel()),
+        ChangeNotifierProvider(create: (_) => BookingViewmodel()),
         ChangeNotifierProvider(create: (_) => AuthViewModel()),
         ChangeNotifierProvider(create: (_) => HotelViewmodel()),
+        ChangeNotifierProvider(create: (_) => RoomViewmodel()),
         ChangeNotifierProvider(create: (_) => UserViewmodel()),
       ],
       child: MaterialApp(

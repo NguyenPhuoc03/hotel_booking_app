@@ -5,7 +5,7 @@ class Review {
   final String guestId;
   final String hotelId;
   final String bookingId;
-  final int star;
+  final double star;
   final DateTime createAt;
   final DateTime? updateAt;
 

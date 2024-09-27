@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hotel_booking_app/models/booking_status.dart';
 
 class Booking {
   final String? bid;
@@ -8,7 +9,8 @@ class Booking {
   final List<String> roomName;
   final DateTime checkIn;
   final DateTime checkOut;
-  final int bookingPrice;
+  final double bookingPrice;
+  final String status;
 
   Booking({
     this.bid,
@@ -19,6 +21,7 @@ class Booking {
     required this.checkIn,
     required this.checkOut,
     required this.bookingPrice,
+    this.status = BookingStatus.active,
   });
 
   factory Booking.fromFirestore(DocumentSnapshot doc) {
@@ -38,6 +41,7 @@ class Booking {
           ? (data['checkOut'] as Timestamp).toDate()
           : DateTime(2000),
       bookingPrice: data['bookingPrice'] ?? 0,
+      status: data['status'] ?? BookingStatus.cancel,
     );
   }
 
@@ -50,6 +54,7 @@ class Booking {
       'checkIn': Timestamp.fromDate(checkIn),
       'checkOut': Timestamp.fromDate(checkOut),
       'bookingPrice': bookingPrice,
+      'status': status,
     };
   }
 }

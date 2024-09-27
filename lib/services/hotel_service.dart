@@ -4,7 +4,7 @@ import 'package:hotel_booking_app/models/hotel.dart';
 import 'package:hotel_booking_app/utils/config_key.dart';
 import 'package:hotel_booking_app/viewmodels/user_viewmodel.dart';
 
-class HotelServices {
+class HotelService {
   final CollectionReference _collectionReference =
       FirebaseFirestore.instance.collection(ConfigKey.hotel);
   final UserViewmodel _userViewmodel = UserViewmodel();
@@ -78,7 +78,19 @@ class HotelServices {
       return [];
     }
   }
-  
+
+  Future<Hotel?> getHotelById(String hid) async {
+    try {
+      DocumentSnapshot documentSnapshot =
+          await _collectionReference.doc(hid).get();
+      return Hotel.fromFirestore(documentSnapshot);
+    } catch (e, stacktrace) {
+      print("(hotel_services) Error fetching data: $e");
+      print("Stacktrace: $stacktrace");
+      return null;
+    }
+  }
+
   //search
   Future<List<Hotel>> getHotelsBySearch(String keySearch) async {
     try {
@@ -86,11 +98,13 @@ class HotelServices {
       List<Hotel> searchResults = [];
 
       allHotels.forEach((index) {
-        if (index.name.toLowerCase().contains(keySearch)
-            ||
-                index.address[ConfigKey.province]!.toLowerCase().contains(keySearch) ||
-                index.address[ConfigKey.district]!.toLowerCase().contains(keySearch)
-            ) {
+        if (index.name.toLowerCase().contains(keySearch) ||
+            index.address[ConfigKey.province]!
+                .toLowerCase()
+                .contains(keySearch) ||
+            index.address[ConfigKey.district]!
+                .toLowerCase()
+                .contains(keySearch)) {
           searchResults.add(index);
         }
       });

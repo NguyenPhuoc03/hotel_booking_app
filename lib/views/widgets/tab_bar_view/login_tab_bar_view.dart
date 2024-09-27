@@ -46,8 +46,8 @@ class _LoginTabBarViewState extends State<LoginTabBarView> {
           await LocalStorage.getStringValue(SharedPreferencesKeys.passwordUser);
       setState(() {
         rememberUser = value;
-        lEmailAddressController.text = emailUser ?? "";
-        lPasswordController.text = passwordUser ?? "";
+        lEmailAddressController.text = emailUser;
+        lPasswordController.text = passwordUser;
       });
     } else {
       setState(() {

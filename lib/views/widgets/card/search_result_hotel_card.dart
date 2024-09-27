@@ -81,7 +81,7 @@ class SearchResultHotelCard extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          hotel.totalReview.toString(),
+                          "${hotel.totalReview.toString()} reviews",
                           style: myTheme.textTheme.bodySmall,
                         )
                       ],

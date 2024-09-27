@@ -2,12 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hotel_booking_app/models/hotel.dart';
 import 'package:hotel_booking_app/utils/config_key.dart';
+import 'package:hotel_booking_app/viewmodels/room_viewmodel.dart';
 import 'package:hotel_booking_app/views/widgets/card/replace_error_image_card.dart';
+import 'package:provider/provider.dart';
 
 class HotelInformationColumnCard extends StatefulWidget {
-  HotelInformationColumnCard(
-      {super.key, required this.onTap, required this.hotel});
-  final VoidCallback onTap;
+  HotelInformationColumnCard({super.key, required this.hotel});
   final Hotel hotel;
 
   @override
@@ -22,9 +22,20 @@ class _HotelInformationColumnCardState
   Widget build(BuildContext context) {
     myTheme = Theme.of(context);
     return GestureDetector(
-      onTap: widget.onTap,
+      //onTap: widget.onTap,
+      onTap: () async {
+        await context.read<RoomViewmodel>().getRooms(widget.hotel.hid!);
+        Navigator.pushNamed(
+          context,
+          'hotelDetail',
+          arguments: {
+            ConfigKey.room: widget.hotel.hid,
+            ConfigKey.name: widget.hotel.name,
+          },
+        );
+      },
       child: Card(
-        margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         elevation: 2,
         color: Colors.white,
         shape: RoundedRectangleBorder(
@@ -35,7 +46,8 @@ class _HotelInformationColumnCardState
           children: [
             CachedNetworkImage(
                 imageUrl: widget.hotel.image[0],
-                placeholder: (context, url) => CircularProgressIndicator(),
+                placeholder: (context, url) =>
+                    const CircularProgressIndicator(),
                 errorWidget: (context, url, error) => ReplaceErrorImageCard(
                       height: 200,
                       width: double.infinity,

@@ -20,12 +20,12 @@ class InformationBookingCard extends StatelessWidget {
     final mediaQuery = MediaQuery.of(context);
     final myTheme = Theme.of(context);
     return Container(
-      margin: EdgeInsets.fromLTRB(14, 10, 14, 0),
-      padding: EdgeInsets.fromLTRB(16, 0, 16, 12),
+      margin: const EdgeInsets.fromLTRB(14, 10, 14, 0),
+      padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
       width: mediaQuery.size.width,
       decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(5)),
+          borderRadius: const BorderRadius.all(Radius.circular(5)),
           border: Border.all(width: 3, color: Colors.grey.shade200)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,7 +33,7 @@ class InformationBookingCard extends StatelessWidget {
         children: [
           ListTile(
             dense: true,
-            contentPadding: EdgeInsets.all(0),
+            contentPadding: const EdgeInsets.all(0),
             leading: icon,
             title: Text(title ?? "Error", style: myTheme.textTheme.bodyLarge),
           ),
@@ -41,14 +41,14 @@ class InformationBookingCard extends StatelessWidget {
             body1 ?? "Error",
             style: myTheme.textTheme.displayMedium,
           ),
-          SizedBox(
+          const SizedBox(
             height: 8,
           ),
           Text(
             body2 ?? "Error",
             style: myTheme.textTheme.displayMedium,
           ),
-          SizedBox(
+          const SizedBox(
             height: 8,
           ),
           Text(

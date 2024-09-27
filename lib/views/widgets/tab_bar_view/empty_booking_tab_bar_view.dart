@@ -11,7 +11,7 @@ class EmptyBookingTabBarView extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
+          const Icon(
             Icons.assignment_late_sharp,
             color: Colors.blueGrey,
             size: 90,
