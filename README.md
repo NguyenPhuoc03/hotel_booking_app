@@ -26,3 +26,9 @@ Follow the steps as in the instructions: https://firebase.google.com/docs/flutte
 3. Instructional videos:
 Watch detailed video instruction: https://www.youtube.com/watch?v=vSaonUieK8E&t=186s
 
+#### ERROR IN PROJECT
+- back detail hotel -> hotel list xuat hien loi setState() call during build
+- booking: lúc đặt phòng, ví dụ phòng hôm nay đã đặt thì khi đặt cho tuần sau thì không còn phòng
+- cancel: trước khi check in thì trong tab active hiện button "cancel" để hủy
+- review: vẫn còn lỗi cơ bản
+
